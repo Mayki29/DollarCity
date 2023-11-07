@@ -28,6 +28,11 @@ class AdminController
         view("admin.compras");
     }
 
+    public function ventas(){
+   
+        view("admin.ventas");
+    }
+
     public function pruebas(){
 
         $p = array("Stock"=>ProductoModel::getstockPorCategoria(), "Productos"=>ProductoModel::getAllAdmin());
