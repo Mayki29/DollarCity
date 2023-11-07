@@ -1,0 +1,17 @@
+.precio{
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #008457;
+    margin-right: 3rem;
+}
+.titulo-precio{
+    font-size: 2rem;
+}
+#txtCantidad{
+    width: 4rem;
+
+}
+#lblCantidad{
+    font-size: 1.1rem;
+    font-weight: 500;
+}

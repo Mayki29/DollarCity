@@ -1,0 +1,36 @@
+.menu_link {
+    display: block;
+    padding: 15px;
+    padding-bottom: 12px;
+    padding-top: 12px;
+    color: rgb(247, 247, 238);
+    text-decoration: none;
+    font-size: 17px;
+    font-weight: 500;
+    border-radius: 0px;
+    background: #119d6e;
+    font-family: 'Calistoga', cursive;
+    transition: 0.5s;
+    box-shadow: 0 0 5px #088b15;
+}
+.menu_link:hover {
+    background: yellow;
+    color: rgba(0,132,87,1);
+    transition: 0.5s;
+    box-shadow: 0 0 10px #e8e524;
+    border-color: darkgreen;
+    cursor: pointer;
+}
+.menu_link-select {
+    background: yellow;
+    color: rgba(0,132,87,1);
+}
+.menu_item {
+    margin-left:0px;
+}
+.menu_item:nth-child(1) {
+    margin-left:0px;
+}
+.ocultar{
+    display: none;
+}
