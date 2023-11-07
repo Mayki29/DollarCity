@@ -1,4 +1,4 @@
-<?php $url_host = "http://localhost/DOLLARCITYMVC/"; ?>
+<?php $url_host = "http://localhost/DollarCity/"; ?>
 
 <!DOCTYPE html>
 <html lang="en">
