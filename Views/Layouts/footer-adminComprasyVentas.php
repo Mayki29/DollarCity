@@ -39,15 +39,19 @@
                   </div>
               </div>
               
-              <!-- JQuery-->
-              <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-              <script src="<?=$url_host?>assets/js/jquery/jquery.dataTables.min.js"></script>
-              <script src="<?=$url_host?>assets/js/jquery/dataTables.bootstrap4.min.js"></script>
-              <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-              
-              <script src="<?=$url_host?>assets/js/bootstrap.bundle.min.js"></script>
+                     <!-- ICONS-->
+              <!-- ICONOS FONTAWESOME-->
+                <script src="https://kit.fontawesome.com/2a0045bed8.js" crossorigin="anonymous"></script>
 
-              <!--CHARTS-->
-              <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
-              <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+               <!-- CDN PARA EL GRAFICO-->
+                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+              <!-- JQuery-->
+            <!-- BOOTSTRAP-->
+
+                <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+                <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+                <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
              

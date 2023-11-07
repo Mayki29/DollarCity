@@ -23,6 +23,10 @@ class AdminController
         $grafico = json_encode(ProductoModel::getstockPorCategoria());
         view("admin.productos",["productos"=>$productos, "categorias"=>$categorias, "grafico"=>$grafico]);
     }
+    public function compras(){
+   
+        view("admin.compras");
+    }
 
     public function pruebas(){
 
