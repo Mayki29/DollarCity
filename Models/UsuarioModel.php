@@ -115,6 +115,27 @@ class UsuarioModel implements JsonSerializable
 
         return $result->fetchAll(PDO::FETCH_CLASS, UsuarioModel::class);
     }
+    
+    public function saveCliente()
+    {
+        $conn = new conexion();
+        $query = "exec SP_CrearUsuario :nom, :ape, :email, :dni, :dir, :num, :pass, 3";
+        try {
+            $result = $conn->getConnection()->prepare($query);
+            $result->bindValue(":nom", $this->Nombres);
+            $result->bindValue(":ape", $this->Apellidos);
+            $result->bindValue(":email", $this->Email);
+            $result->bindValue(":dni", $this->DNI);
+            $result->bindValue(":dir", $this->Direccion);
+            $result->bindValue(":pass", $this->Password);
+            $result->bindValue(":num", $this->NumeroTelefono);
+            $result->execute();
+
+            return "correct";
+        } catch (PDOException $e) {
+            return "error";
+        }
+    }
     public function saveEmpleado()
     {
         $conn = new conexion();

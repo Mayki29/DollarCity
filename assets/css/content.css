@@ -8,24 +8,30 @@
     align-items: center;
     flex-wrap: wrap;
     flex-grow: 1;
-    max-width: 1300px;
+    max-width: 1400px;
     margin: auto;
 }           
 .category {
     text-align: center;
-    padding: 5px
+    padding: 10px;
 }
 .category img {
-    border-radius: 50%;
+    border-radius: 15%;
     width: 200px;
-    height: 200px;
+    height: 210px;
     object-fit:cover;
+    cursor: pointer;
 }
 .category p {
     margin: 15px 0;
-    font-size: 1.3em;
+    font-size: 1.2em;
     font-family: 'Instrument Sans', sans-serif;
     text-shadow: 0 5px 5px rgba(0,0,0,0.05);
+    background: #168c64;
+    color: white;
+    padding: 12px;
+    border-radius: 10px;
+    cursor: pointer;
 }
 .title {
     text-align: center;
@@ -33,6 +39,7 @@
     font-weight: bold;
     padding: 30px 0;
     font-family: 'Rowdies', sans-serif;
+    margin-bottom: 30px;
 }
 .title .title_text {
     background: #168c64;

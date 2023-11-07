@@ -131,18 +131,6 @@ function cargarTablaEmpleados(empleados) {
 async function registrarEmpleado() {
     const formularioRegistrar = document.getElementById("frmResgistrarEmpleado");
 
-    let compra = {
-        Empleado:'asfasgs',
-        Proveedor:'a',
-        detalle : {
-            producto :asf
-        },
-        fecha :'asfasf'};
-    let detalle = {};
-
-    compra.detalle = detalle
-
-
     let empleado = {};
     empleado.nombres = formularioRegistrar.nombre.value;
     empleado.apellidos = formularioRegistrar.apellido.value;

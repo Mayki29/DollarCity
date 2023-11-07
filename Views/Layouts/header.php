@@ -1,11 +1,13 @@
 <?php 
-$url_host = "http://localhost/DOLLARCITYMVC/" ;
+$url_host = "http://localhost/DOLLARCITY/" ;
 //echo dirname(__DIR__);
 //include_once("./includes/conexion.php"); 
+
+/*include_once("./Models/UsuarioModel.php");
+$conn = new conexion();*/
 include_once("./Controllers/HomeController.php");
-include_once("./Models/UsuarioModel.php");
-$conn = new conexion();
-$homeController = new HomeController();
+$categorias = HomeController::getCategorias();
+
 $logEstado = 0;
 session_start();
 if(!isset($_SESSION['user'])){ 
@@ -33,6 +35,7 @@ if(!isset($_SESSION['user'])){
     <link rel="stylesheet" href="<?= $url_host ?>assets/css/bootstrap.css">
     <link rel="stylesheet" href="<?= $url_host ?>assets/css/estilos-general.css">
     <link rel="stylesheet" href="<?= $url_host ?>assets/css/estilos-header.css">
+    <link rel="stylesheet" href="<?= $url_host ?>assets/css/estilos-registro.css">
     <link rel="stylesheet" href="<?= $url_host ?>assets/css/slider.css">
     <link rel="stylesheet" href="<?= $url_host ?>assets/css/content.css">
     <link rel="stylesheet" href="<?= $url_host ?>assets/css/footer.css">
@@ -40,7 +43,6 @@ if(!isset($_SESSION['user'])){
     <!-- Enlace a Iconos -->
     <link href="https://file.myfontastic.com/LhSoitGS3oZGK2yScVfSuJ/icons.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
-    <!--Bootstrap-->
 
 </head>
 
@@ -61,19 +63,21 @@ if(!isset($_SESSION['user'])){
                         <ul class="menu-first">
                             <li class="menu_item">
                                 <a class="menu_link <?= ($paginaActual == 'index.php')? 'menu_link-select':'' ?>"
-                                    href="<?= $url_host ?>home">Inicio</a>
+                                    href="<?= $url_host ?>home"><i class="fa-solid fa-house"></i> Inicio</a>
                             </li>
                             <li class="menu_item">
                                 <a class="menu_link <?= ($paginaActual == 'nosotros.php')? 'menu_link-select':'' ?>"
-                                    href="<?= $url_host ?>home/nosotros">Nosotros</a>
+                                    href="<?= $url_host ?>home/nosotros"><i class="fa-solid fa-users"></i> Nosotros</a>
                             </li>
                             <li class="menu_item">
                                 <a class="menu_link <?= ($paginaActual == 'ubicanos.php')? 'menu_link-select':'' ?>"
-                                    href="<?= $url_host ?>home/ubicanos">Ubicanos</a>
+                                    href="<?= $url_host ?>home/ubicanos"><i class="fa-solid fa-location-dot"></i>
+                                    Ubicanos</a>
                             </li>
                             <li class="menu_item">
                                 <a class="menu_link <?= ($paginaActual == 'contactanos.php')? 'menu_link-select':'' ?>"
-                                    href="#">Contactanos</a>
+                                    href="<?= $url_host ?>home/contactanos"><i class="fa-solid fa-envelope"></i>
+                                    Contactanos</a>
                             </li>
                             <li class="menu_item">
                                 <?php if($logEstado == 1){ ?>
@@ -92,9 +96,10 @@ if(!isset($_SESSION['user'])){
                                         </div>
                                     </div>
                                     <?php } else{ ?>
-                                        <a class="menu_link" href="<?=$url_host?>acces/login">Iniciar Sesion</a>';
+                                    <a class="menu_link" href="<?=$url_host?>acces/login"><i
+                                            class="fa-solid fa-user"></i> Iniciar Sesion</a>';
                                     <?php }?>
-                                    
+
                             </li>
                         </ul>
                     </nav>
@@ -139,381 +144,15 @@ if(!isset($_SESSION['user'])){
                         </label>
                         <nav class="navbar-category">
                             <ul>
-                                <li class="menu_category_item"><a class="menu_link-category" href="#">Temporada</a>
-                                    <ul class="link_category_title">
-                                        <li class="link_title"><a class="text-option">Opcion 1</a></li>
-                                        <ul class="link_category_options">
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.1</a>
-                                            </li>
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.2</a>
-                                            </li>
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.3</a>
-                                            </li>
-                                        </ul>
-                                        <li class="link_title"><a class="text-option">Opcion 2</a></li>
-                                        <ul class="link_category_options">
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.1</a>
-                                            </li>
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.2</a>
-                                            </li>
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.3</a>
-                                            </li>
-                                        </ul>
-                                        <li class="link_title"><a class="text-option">Opcion 3</a></li>
-                                        <ul class="link_category_options">
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.1</a>
-                                            </li>
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.2</a>
-                                            </li>
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.3</a>
-                                            </li>
-                                        </ul>
-                                    </ul>
+                                <?php foreach($categorias as $categoria): ?>
+                                <li class="menu_category_item"><a class="menu_link-category" href="#"><?=$categoria->getNombre()?></a>
                                 </li>
-                                <li class="menu_category_item"><a class="menu_link-category" href="#">Cocina</a>
-                                    <ul class="link_category_title">
-                                        <li class="link_title"><a class="text-option">Opcion 1</a></li>
-                                        <ul class="link_category_options">
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.1</a>
-                                            </li>
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.2</a>
-                                            </li>
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.3</a>
-                                            </li>
-                                        </ul>
-                                        <li class="link_title"><a class="text-option">Opcion 2</a></li>
-                                        <ul class="link_category_options">
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.1</a>
-                                            </li>
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.2</a>
-                                            </li>
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.3</a>
-                                            </li>
-                                        </ul>
-                                        <li class="link_title"><a class="text-option">Opcion 3</a></li>
-                                        <ul class="link_category_options">
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.1</a>
-                                            </li>
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.2</a>
-                                            </li>
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.3</a>
-                                            </li>
-                                        </ul>
-                                    </ul>
-                                </li>
-                                <li class="menu_category_item"><a class="menu_link-category" href="#">Hogar</a>
-                                    <ul class="link_category_title">
-                                        <li class="link_title"><a class="text-option">Opcion 1</a></li>
-                                        <ul class="link_category_options">
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.1</a>
-                                            </li>
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.2</a>
-                                            </li>
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.3</a>
-                                            </li>
-                                        </ul>
-                                        <li class="link_title"><a class="text-option">Opcion 2</a></li>
-                                        <ul class="link_category_options">
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.1</a>
-                                            </li>
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.2</a>
-                                            </li>
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.3</a>
-                                            </li>
-                                        </ul>
-                                        <li class="link_title"><a class="text-option">Opcion 3</a></li>
-                                        <ul class="link_category_options">
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.1</a>
-                                            </li>
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.2</a>
-                                            </li>
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.3</a>
-                                            </li>
-                                        </ul>
-                                    </ul>
-                                </li>
-                                <li class="menu_category_item"><a class="menu_link-category" href="#">Cuidado
-                                        Personal</a>
-                                    <ul class="link_category_title">
-                                        <li class="link_title"><a class="text-option">Opcion 1</a></li>
-                                        <ul class="link_category_options">
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.1</a>
-                                            </li>
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.2</a>
-                                            </li>
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.3</a>
-                                            </li>
-                                        </ul>
-                                        <li class="link_title"><a class="text-option">Opcion 2</a></li>
-                                        <ul class="link_category_options">
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.1</a>
-                                            </li>
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.2</a>
-                                            </li>
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.3</a>
-                                            </li>
-                                        </ul>
-                                        <li class="link_title"><a class="text-option">Opcion 3</a></li>
-                                        <ul class="link_category_options">
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.1</a>
-                                            </li>
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.2</a>
-                                            </li>
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.3</a>
-                                            </li>
-                                        </ul>
-                                    </ul>
-                                </li>
-                                <li class="menu_category_item"><a class="menu_link-category" href="#">Manualidades</a>
-                                    <ul class="link_category_title">
-                                        <li class="link_title"><a class="text-option">Opcion 1</a></li>
-                                        <ul class="link_category_options">
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.1</a>
-                                            </li>
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.2</a>
-                                            </li>
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.3</a>
-                                            </li>
-                                        </ul>
-                                        <li class="link_title"><a class="text-option">Opcion 2</a></li>
-                                        <ul class="link_category_options">
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.1</a>
-                                            </li>
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.2</a>
-                                            </li>
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.3</a>
-                                            </li>
-                                        </ul>
-                                        <li class="link_title"><a class="text-option">Opcion 3</a></li>
-                                        <ul class="link_category_options">
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.1</a>
-                                            </li>
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.2</a>
-                                            </li>
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.3</a>
-                                            </li>
-                                        </ul>
-                                    </ul>
-                                </li>
-                                <li class="menu_category_item"><a class="menu_link-category" href="#">Juguetes</a>
-                                    <ul class="link_category_title">
-                                        <li class="link_title"><a class="text-option">Opcion 1</a></li>
-                                        <ul class="link_category_options">
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.1</a>
-                                            </li>
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.2</a>
-                                            </li>
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.3</a>
-                                            </li>
-                                        </ul>
-                                        <li class="link_title"><a class="text-option">Opcion 2</a></li>
-                                        <ul class="link_category_options">
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.1</a>
-                                            </li>
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.2</a>
-                                            </li>
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.3</a>
-                                            </li>
-                                        </ul>
-                                        <li class="link_title"><a class="text-option">Opcion 3</a></li>
-                                        <ul class="link_category_options">
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.1</a>
-                                            </li>
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.2</a>
-                                            </li>
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.3</a>
-                                            </li>
-                                        </ul>
-                                    </ul>
-                                </li>
-                                <li class="menu_category_item"><a class="menu_link-category" href="#">Limpieza</a>
-                                    <ul class="link_category_title">
-                                        <li class="link_title"><a class="text-option">Opcion 1</a></li>
-                                        <ul class="link_category_options">
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.1</a>
-                                            </li>
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.2</a>
-                                            </li>
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.3</a>
-                                            </li>
-                                        </ul>
-                                        <li class="link_title"><a class="text-option">Opcion 2</a></li>
-                                        <ul class="link_category_options">
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.1</a>
-                                            </li>
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.2</a>
-                                            </li>
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.3</a>
-                                            </li>
-                                        </ul>
-                                        <li class="link_title"><a class="text-option">Opcion 3</a></li>
-                                        <ul class="link_category_options">
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.1</a>
-                                            </li>
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.2</a>
-                                            </li>
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.3</a>
-                                            </li>
-                                        </ul>
-                                    </ul>
-                                </li>
-                                <li class="menu_category_item"><a class="menu_link-category" href="#">Celebraciones</a>
-                                    <ul class="link_category_title">
-                                        <li class="link_title"><a class="text-option">Opcion 1</a></li>
-                                        <ul class="link_category_options">
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.1</a>
-                                            </li>
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.2</a>
-                                            </li>
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.3</a>
-                                            </li>
-                                        </ul>
-                                        <li class="link_title"><a class="text-option">Opcion 2</a></li>
-                                        <ul class="link_category_options">
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.1</a>
-                                            </li>
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.2</a>
-                                            </li>
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.3</a>
-                                            </li>
-                                        </ul>
-                                        <li class="link_title"><a class="text-option">Opcion 3</a></li>
-                                        <ul class="link_category_options">
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.1</a>
-                                            </li>
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.2</a>
-                                            </li>
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.3</a>
-                                            </li>
-                                        </ul>
-                                    </ul>
-                                </li>
-                                <li class="menu_category_item"><a class="menu_link-category" href="#">Mascotas</a>
-                                    <ul class="link_category_title">
-                                        <li class="link_title"><a class="text-option">Opcion 1</a></li>
-                                        <ul class="link_category_options">
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.1</a>
-                                            </li>
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.2</a>
-                                            </li>
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.3</a>
-                                            </li>
-                                        </ul>
-                                        <li class="link_title"><a class="text-option">Opcion 2</a></li>
-                                        <ul class="link_category_options">
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.1</a>
-                                            </li>
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.2</a>
-                                            </li>
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.3</a>
-                                            </li>
-                                        </ul>
-                                        <li class="link_title"><a class="text-option">Opcion 3</a></li>
-                                        <ul class="link_category_options">
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.1</a>
-                                            </li>
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.2</a>
-                                            </li>
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.3</a>
-                                            </li>
-                                        </ul>
-                                    </ul>
-                                </li>
-                                <li class="menu_category_item"><a class="menu_link-category" href="#">Oficina</a>
-                                    <ul class="link_category_title">
-                                        <li class="link_title"><a class="text-option">Opcion 1</a></li>
-                                        <ul class="link_category_options">
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.1</a>
-                                            </li>
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.2</a>
-                                            </li>
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.3</a>
-                                            </li>
-                                        </ul>
-                                        <li class="link_title"><a class="text-option">Opcion 2</a></li>
-                                        <ul class="link_category_options">
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.1</a>
-                                            </li>
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.2</a>
-                                            </li>
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.3</a>
-                                            </li>
-                                        </ul>
-                                        <li class="link_title"><a class="text-option">Opcion 3</a></li>
-                                        <ul class="link_category_options">
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.1</a>
-                                            </li>
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.2</a>
-                                            </li>
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.3</a>
-                                            </li>
-                                        </ul>
-                                    </ul>
-                                </li>
-                                <li class="menu_category_item"><a class="menu_link-category" href="#">Alimentos</a>
-                                    <ul class="link_category_title">
-                                        <li class="link_title"><a class="text-option">Opcion 1</a></li>
-                                        <ul class="link_category_options">
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.1</a>
-                                            </li>
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.2</a>
-                                            </li>
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.3</a>
-                                            </li>
-                                        </ul>
-                                        <li class="link_title"><a class="text-option">Opcion 2</a></li>
-                                        <ul class="link_category_options">
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.1</a>
-                                            </li>
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.2</a>
-                                            </li>
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.3</a>
-                                            </li>
-                                        </ul>
-                                        <li class="link_title"><a class="text-option">Opcion 3</a></li>
-                                        <ul class="link_category_options">
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.1</a>
-                                            </li>
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.2</a>
-                                            </li>
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.3</a>
-                                            </li>
-                                        </ul>
-                                    </ul>
-                                </li>
-                                <li class="menu_category_item"><a class="menu_link-category" href="#">Bebé</a>
-                                    <ul class="link_category_title">
-                                        <li class="link_title"><a class="text-option">Opcion 1</a></li>
-                                        <ul class="link_category_options">
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.1</a>
-                                            </li>
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.2</a>
-                                            </li>
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.3</a>
-                                            </li>
-                                        </ul>
-                                        <li class="link_title"><a class="text-option">Opcion 2</a></li>
-                                        <ul class="link_category_options">
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.1</a>
-                                            </li>
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.2</a>
-                                            </li>
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.3</a>
-                                            </li>
-                                        </ul>
-                                        <li class="link_title"><a class="text-option">Opcion 3</a></li>
-                                        <ul class="link_category_options">
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.1</a>
-                                            </li>
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.2</a>
-                                            </li>
-                                            <li class="link_suboption"><a class="link_text_suboption">Opcion 1.3</a>
-                                            </li>
-                                        </ul>
-                                    </ul>
-                                </li>
+                                <?php endforeach ?>                               
                             </ul>
                         </nav>
+                    </div>
+                    <div class="container_shopping_cart">
+                        <a class="fa-solid fa-cart-plus" href="#" title="Mis compras"></a>
                     </div>
                     <div class="container_icons-social">
                         <a class="fa-brands fa-facebook" href="https://www.facebook.com/DollarcityPeru" target="_blank"

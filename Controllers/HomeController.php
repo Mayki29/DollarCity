@@ -20,6 +20,10 @@ class HomeController extends conexion{
         view("home.ubicanos");
     }
 
+    public function contactanos(){
+        view("home.contactanos");
+    }
+
     public function productos(){
         //Hacemos uso de la funcion estatica
         $p = ProductoModel::getAll();
@@ -34,6 +38,10 @@ class HomeController extends conexion{
         $stm = $this->getConnection()->prepare("select top(18)* from Producto");
         $stm -> execute();
         return $productos = $stm->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    static function getCategorias(){
+        return CategoriaModel::getAll();
     }
 
     public function prueba(){

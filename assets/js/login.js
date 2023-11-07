@@ -4,16 +4,13 @@ let message = document.getElementById("message");
 formulario.addEventListener("submit", async function(e){
     e.preventDefault();//Evitamos que se recargue la pagina
 
-    console.log("dentro");
     let user = formulario.email.value;
     let pass = formulario.password.value;
     let obj = {};
     obj.usuario = user;
     obj.password = pass;
-    obj.peticion = "login";
-    console.log(obj.usuario)
     formulario.btnSubmitCli.setAttribute("value","cargando");
-    const request = await fetch('http://localhost/DOLLARCITYMVC/acces/validarusuario',{
+    const request = await fetch('http://localhost/DOLLARCITY/acces/validarusuario',{
         method: 'POST',
         headres: {
             'Content-Type': 'application/json'
@@ -25,7 +22,7 @@ formulario.addEventListener("submit", async function(e){
     formulario.btnSubmitCli.setAttribute("value","Finalizado");
     if(resp === "correct"){
         message.innerText = "Inicio de sesion correcto";
-        location.href="http://localhost/DOLLARCITYMVC/home";
+        location.href="http://localhost/DOLLARCITY/home";
     }else{
         message.innerText = "Credenciales incorrectas, vuelva a intentarlo";
     }
