@@ -169,6 +169,9 @@ async function registrarProducto() {
         alert("Error");
     }
 }
+
+
+
 async function modificarProducto() {
     const formularioModificar = document.getElementById("frmModificarProducto")
     let producto = {};

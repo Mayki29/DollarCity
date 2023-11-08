@@ -124,21 +124,20 @@ include("./Views/Layouts/header-adminComprasyVentas.php");
             <!-- FIN DE LA TABLA COMPRAS-->
 
 
-            <!-- MODALS-->
-            <!--MODAL DE AGREGAR LA COMPRA-->
-            <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1"
-                aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="staticBackdropLabel">Agregar Compra</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-
-                            <form>
+                             <!-- MODALS-->
+                             <!--MODAL DE AGREGAR LA COMPRA-->
+                             <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h5 class="modal-title" id="staticBackdropLabel">Agregar Compra</h5>
+                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                    </div>
+                                    <div class="modal-body">
+                                     
+                                    <form id="frmRegistrarCompra">
 
                                 <!-- Agrega aquí los campos del formulario para agregar datos -->
                                 <table>
@@ -272,29 +271,29 @@ include("./Views/Layouts/header-adminComprasyVentas.php");
 
                             </form>
 
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cerrar</button>
-                            <button type="button" class="btn btn-outline-success">Guardar</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!--SCRIPT PARA AGREGAR PRODUCTOS AL MOMENTO-->
-            <script>
-            document.addEventListener('click', function(event) {
-                if (event.target && event.target.classList.contains('agregarProducto')) {
-                    const productoInput = event.target.closest('tr').querySelector('.productoCompra');
-                    const cantidadInput = event.target.closest('tr').querySelector('.cantidadCompra');
-
-                    const producto = productoInput.value.trim();
-                    const cantidad = cantidadInput.value.trim();
-
-                    if (producto !== '' && cantidad > 0) {
-                        const productoDiv = document.createElement('div');
-                        productoDiv.className = 'd-flex justify-content-between producto-seleccionado';
-                        productoDiv.innerHTML = `
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cerrar</button>
+                                      <button type="button" class="btn btn-outline-success" onclick="registrarCompra()">Guardar</button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              
+                                 <!--SCRIPT PARA AGREGAR PRODUCTOS AL MOMENTO-->
+                                 <script>
+                                    document.addEventListener('click', function (event) {
+                                        if (event.target && event.target.classList.contains('agregarProducto')) {
+                                            const productoInput = event.target.closest('tr').querySelector('.productoCompra');
+                                            const cantidadInput = event.target.closest('tr').querySelector('.cantidadCompra');
+                            
+                                            const producto = productoInput.value.trim();
+                                            const cantidad = cantidadInput.value.trim();
+                            
+                                            if (producto !== '' && cantidad > 0) {
+                                                const productoDiv = document.createElement('div');
+                                                productoDiv.className = 'd-flex justify-content-between producto-seleccionado';
+                                                productoDiv.innerHTML = `
                                                     <input type="text" class="form-control producto-deshabilitado" value="${producto} x${cantidad}" disabled>
                                                     <button type="button" class="btn btn-outline-danger btn-sm eliminarProducto">
                                                         <i class="fas fa-times"></i>
@@ -331,29 +330,29 @@ include("./Views/Layouts/header-adminComprasyVentas.php");
             <!--FIN DEL FORMULARIO PARA AGREGAR LA COMPRA-->
 
 
-            <!-- MODAL ELIMINAR COMPRA-->
-            <div class="modal fade " id="EliminarCompra" data-backdrop="static" data-keyboard="false" tabindex="-1"
-                aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="staticBackdropLabel">Eliminar Compra</h5>
-                            <input type="number" id="deleteCod" name="deleteCod" style="display: none;">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            ¿Estas seguro de que quieres cancelar esta compra?
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-outline-success" data-dismiss="modal">No</button>
-                            <button type="button" class="btn btn-outline-primary">Sí</button>
-                        </div>
-                    </div>
-                </div>
+                         <!-- MODAL ELIMINAR COMPRA -->
+<div class="modal fade" id="EliminarCompra" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Eliminar Compra</h5>
+                <input type="number" id="deleteCod" name="deleteCod" style="display: none;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
-            <!-- FIN DEL MODAL PARA ELIMINAR COMPRA-->
+            <div class="modal-body">
+                ¿Estás seguro de que quieres cancelar esta compra?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success" data-dismiss="modal">No</button>
+                <button type="button" class="btn btn-outline-primary" onclick="eliminarCompra()">Sí</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- FIN DEL MODAL PARA ELIMINAR COMPRA -->
+
 
 
 
@@ -495,14 +494,14 @@ include("./Views/Layouts/header-adminComprasyVentas.php");
                             </form>
 
 
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
+                              <button type="button" class="btn btn-outline-success" onclick="modificarCompra()">Guardar</button>
+                            </div>
+                          </div>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
-                            <button type="button" class="btn btn-outline-success">Guardar</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                      </div>
 
             <!-- FIN DE MODIFICACION DE COMPRA-->
 
@@ -553,8 +552,8 @@ include("./Views/Layouts/header-adminComprasyVentas.php");
 
             <?php include("./Views/Layouts/footer-adminComprasyVentas.php");?>
 
-            <script src="<?=$url_host?>assets/js/admin/graficoCompra.js"></script>
-            <script src="<?php echo $url_host ?>assets/js/admin/compras.js"></script>
+                        <script src="<?=$url_host?>assets/js/admin/graficoCompra.js"></script>
+                        <script src="<?=$url_host ?>assets/js/admin/compras.js"></script>
 
             </body>
 
