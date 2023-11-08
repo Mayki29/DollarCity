@@ -4,7 +4,8 @@ include("./Views/Layouts/header-adminComprasyVentas.php");
 ?>
 <!--Datos de la compra -->
 <script>
-    let dataDetalle = <?=json_encode($compras)?>
+let dataDetalle = <?=json_encode($compras)?>;
+let dataProductos = <?=json_encode($productos)?>;
 </script>
 <!--INICIO DEL CONTENIDO DE LA TABLA COMPRAS-->
 <div class="container-fluid ">
@@ -104,8 +105,9 @@ include("./Views/Layouts/header-adminComprasyVentas.php");
                                 </td>
                                 <td>
                                     <div class="btn-group">
-                                        <button class="btn btn-outline-success" onclick="cargarTablaDetalleCompra(<?=$compra->getCompraID()?>)" type="button" data-toggle="modal"
-                                            data-target="#exampleModal">
+                                        <button class="btn btn-outline-success"
+                                            onclick="cargarTablaDetalleCompra(<?=$compra->getCompraID()?>)"
+                                            type="button" data-toggle="modal" data-target="#exampleModal">
                                             <i class="fas fa-info-circle fa-lg" style="color: #15a826; "></i>
                                         </button>
                                     </div>
@@ -124,20 +126,21 @@ include("./Views/Layouts/header-adminComprasyVentas.php");
             <!-- FIN DE LA TABLA COMPRAS-->
 
 
-                             <!-- MODALS-->
-                             <!--MODAL DE AGREGAR LA COMPRA-->
-                             <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                  <div class="modal-content">
-                                    <div class="modal-header">
-                                      <h5 class="modal-title" id="staticBackdropLabel">Agregar Compra</h5>
-                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                      </button>
-                                    </div>
-                                    <div class="modal-body">
-                                     
-                                    <form id="frmRegistrarCompra">
+            <!-- MODALS-->
+            <!--MODAL DE AGREGAR LA COMPRA-->
+            <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1"
+                aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLabel">Agregar Compra</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+
+                            <form id="frmRegistrarCompra">
 
                                 <!-- Agrega aquí los campos del formulario para agregar datos -->
                                 <table>
@@ -145,7 +148,8 @@ include("./Views/Layouts/header-adminComprasyVentas.php");
                                         <fieldset disabled>
                                             <div class="form-group">
                                                 <label for="disabledTextInput">Empleado: </label>
-                                                <input type="text" id="disabledTextInput" class="form-control"
+                                                <input type="hidden" id="disabledTextInput" name="txtIdEmpleado"  class="form-control" value="<?= $_SESSION['user']->getUsuarioID() ?>">
+                                                <input type="text" id="disabledTextInput" class="form-control" value="<?=$_SESSION['user']->getNombres().$_SESSION['user']->getApellidos()?>"
                                                     placeholder="Empleado1">
                                             </div>
 
@@ -158,7 +162,7 @@ include("./Views/Layouts/header-adminComprasyVentas.php");
                                                     for="inputGroupSelect01">Proveedor</label>
 
                                             </div>
-                                            <select class="custom-select" id="inputGroupSelect01">
+                                            <select class="custom-select" id="inputGroupSelect01" name="slcProveedor">
                                                 <?php foreach($proveedores as $proveedor):?>
                                                 <option value="<?= $proveedor->getProveedorID()?>">
                                                     <?= $proveedor->getRazonSocial()?>
@@ -170,8 +174,8 @@ include("./Views/Layouts/header-adminComprasyVentas.php");
 
                                     <tr>
                                         <td> <label for="apellido">Fecha:</label></td>
-                                        <td><input type="datetime-local" class="form-control" rows="3""  id=" apellido"
-                                                placeholder="Descripcion..." name="apellido"></td>
+                                        <td><input type="datetime-local" class="form-control" rows="3" id="apellido"
+                                                placeholder="Descripcion..." name="dtFecha"></td>
                                     </tr>
                                     <tr>
                                         <td>
@@ -193,9 +197,14 @@ include("./Views/Layouts/header-adminComprasyVentas.php");
                                     </tr>
 
                                     <tr>
-
+                                        <!--datalist id="dlOpcionesProductos">
+                                            <option value="Opción 1">
+                                            
+                                        </datalist-->
                                         <td><input type="text" class="form-control productoCompra"
-                                                placeholder="Producto..." required></td>
+                                                id="txtProductosAgregar" placeholder="Producto..."
+                                                list="dlOpcionesProductos" onchange="//cargarDataListProductos()"
+                                                required></td>
 
                                         <td>
                                             <input type="number" class="form-control cantidadCompra"
@@ -263,7 +272,7 @@ include("./Views/Layouts/header-adminComprasyVentas.php");
 
 
                                         <td><label for="disabledTextInput">TOTAL: </label></td>
-                                        <td><input type="text" id="disabledTextInput" class="form-control"
+                                        <td><input type="text" id="disabledTextInput" class="form-control txtTotal"
                                                 placeholder="0.0" disabled></td>
                                     </tr>
 
@@ -271,30 +280,55 @@ include("./Views/Layouts/header-adminComprasyVentas.php");
 
                             </form>
 
-                                    </div>
-                                    <div class="modal-footer">
-                                      <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cerrar</button>
-                                      <button type="button" class="btn btn-outline-success" onclick="registrarCompra()">Guardar</button>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                              
-                                 <!--SCRIPT PARA AGREGAR PRODUCTOS AL MOMENTO-->
-                                 <script>
-                                    document.addEventListener('click', function (event) {
-                                        if (event.target && event.target.classList.contains('agregarProducto')) {
-                                            const productoInput = event.target.closest('tr').querySelector('.productoCompra');
-                                            const cantidadInput = event.target.closest('tr').querySelector('.cantidadCompra');
-                            
-                                            const producto = productoInput.value.trim();
-                                            const cantidad = cantidadInput.value.trim();
-                            
-                                            if (producto !== '' && cantidad > 0) {
-                                                const productoDiv = document.createElement('div');
-                                                productoDiv.className = 'd-flex justify-content-between producto-seleccionado';
-                                                productoDiv.innerHTML = `
-                                                    <input type="text" class="form-control producto-deshabilitado" value="${producto} x${cantidad}" disabled>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cerrar</button>
+                            <button type="button" class="btn btn-outline-success"
+                                onclick="registrarCompra()">Guardar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--SCRIPT PARA AGREGAR PRODUCTOS AL MOMENTO-->
+            <script>
+            //Temporal
+            function buscarProductoPorIdLocal(id) {
+                let prod;
+                for (let producto of dataProductos) {
+                    if (producto.ProductoID === id.toString()) {
+                        prod = producto;
+                        return prod;
+
+                    }
+                }
+                return null;
+            }
+            let precioTotal = 0;
+            function calcularTotal(precio, operacion){
+                switch(operacion){
+                    case "suma": precioTotal += parseFloat(precio); break;
+                    case "resta": precioTotal -= parseFloat(precio); break;
+                }
+                document.getElementsByClassName("txtTotal").disabledTextInput.value = precioTotal.toFixed(2);
+            }
+            document.addEventListener('click', function(event) {
+                if (event.target && event.target.classList.contains('agregarProducto')) {
+                    const productoInput = event.target.closest('tr').querySelector('.productoCompra');
+                    const cantidadInput = event.target.closest('tr').querySelector('.cantidadCompra');
+
+                    const producto = productoInput.value.trim();
+                    const cantidad = cantidadInput.value.trim();
+
+                    if (producto !== '' && cantidad > 0) {
+                        let p = buscarProductoPorIdLocal(producto); //function temporal
+                        const productoDiv = document.createElement('div');
+                        productoDiv.className = 'd-flex justify-content-between producto-seleccionado';
+                        productoDiv.innerHTML = `
+                                                    <input type="hidden" class="form-control producto-deshabilitado productoCompraL" value="${p.ProductoID}" disabled>
+                                                    <input type="hidden" class="form-control producto-deshabilitado cantidadCompraL" value="${cantidad}" disabled>
+                                                    <input type="text" class="form-control producto-deshabilitado" value="${p.Nombre} x ${cantidad} -> S/ ${(cantidad * p.Precio).toFixed(2)}" disabled>
+                                                    <input type="hidden" class="form-control producto-deshabilitado subTotal" name="txtSubtotal" value="${(cantidad * p.Precio).toFixed(2)}" disabled>
                                                     <button type="button" class="btn btn-outline-danger btn-sm eliminarProducto">
                                                         <i class="fas fa-times"></i>
                                                     </button>
@@ -302,12 +336,16 @@ include("./Views/Layouts/header-adminComprasyVentas.php");
 
                         document.querySelector('.productosSeleccionados').appendChild(productoDiv);
 
+                        calcularTotal((cantidad * p.Precio).toFixed(2), "suma");
+
                         productoInput.value = '';
                         cantidadInput.value = '';
                     }
                 }
 
                 if (event.target && event.target.classList.contains('eliminarProducto')) {
+                    let subT = event.target.closest('.producto-seleccionado').getElementsByClassName("subTotal").txtSubtotal.value;
+                    calcularTotal(subT, "resta");
                     event.target.closest('.producto-seleccionado').remove();
                 }
             });
@@ -330,28 +368,29 @@ include("./Views/Layouts/header-adminComprasyVentas.php");
             <!--FIN DEL FORMULARIO PARA AGREGAR LA COMPRA-->
 
 
-                         <!-- MODAL ELIMINAR COMPRA -->
-<div class="modal fade" id="EliminarCompra" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Eliminar Compra</h5>
-                <input type="number" id="deleteCod" name="deleteCod" style="display: none;">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+            <!-- MODAL ELIMINAR COMPRA -->
+            <div class="modal fade" id="EliminarCompra" data-backdrop="static" data-keyboard="false" tabindex="-1"
+                aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLabel">Eliminar Compra</h5>
+                            <input type="number" id="deleteCod" name="deleteCod" style="display: none;">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            ¿Estás seguro de que quieres cancelar esta compra?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-outline-success" data-dismiss="modal">No</button>
+                            <button type="button" class="btn btn-outline-primary" onclick="eliminarCompra()">Sí</button>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="modal-body">
-                ¿Estás seguro de que quieres cancelar esta compra?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-outline-success" data-dismiss="modal">No</button>
-                <button type="button" class="btn btn-outline-primary" onclick="eliminarCompra()">Sí</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- FIN DEL MODAL PARA ELIMINAR COMPRA -->
+            <!-- FIN DEL MODAL PARA ELIMINAR COMPRA -->
 
 
 
@@ -494,14 +533,15 @@ include("./Views/Layouts/header-adminComprasyVentas.php");
                             </form>
 
 
-                            </div>
-                            <div class="modal-footer">
-                              <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
-                              <button type="button" class="btn btn-outline-success" onclick="modificarCompra()">Guardar</button>
-                            </div>
-                          </div>
                         </div>
-                      </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
+                            <button type="button" class="btn btn-outline-success"
+                                onclick="modificarCompra()">Guardar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <!-- FIN DE MODIFICACION DE COMPRA-->
 
@@ -552,8 +592,8 @@ include("./Views/Layouts/header-adminComprasyVentas.php");
 
             <?php include("./Views/Layouts/footer-adminComprasyVentas.php");?>
 
-                        <script src="<?=$url_host?>assets/js/admin/graficoCompra.js"></script>
-                        <script src="<?=$url_host ?>assets/js/admin/compras.js"></script>
+            <script src="<?=$url_host?>assets/js/admin/graficoCompra.js"></script>
+            <script src="<?=$url_host ?>assets/js/admin/compras.js"></script>
 
             </body>
 

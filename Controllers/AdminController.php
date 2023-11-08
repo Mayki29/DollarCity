@@ -35,7 +35,8 @@ class AdminController
     {
         $compras = CompraModel::getAllAdmin();
         $proveedores = ProveedorModel::getAll();
-        view("admin.compras", ["compras" => $compras, "proveedores" => $proveedores]);
+        $productos = ProductoModel::getAllAdmin();
+        view("admin.compras", ["compras" => $compras, "proveedores" => $proveedores, "productos" => $productos]);
     }
 
 
@@ -245,6 +246,16 @@ class AdminController
         }
     }
 
+
+    public function buscarProducto($name){
+        $conn = new conexion();
+        $resultado = $conn->getConnection()->prepare("EXEC SP_BuscarProductoByNombre :nom");
+        $resultado->bindValue(":nom", $name);
+        $resultado->execute();
+        echo json_encode($resultado->fetchAll(PDO::FETCH_ASSOC));
+    }
+
+
     #endregion
 
     #region Compras
@@ -252,10 +263,19 @@ class AdminController
     {
         $data = json_decode(file_get_contents('php://input'));
         $compra = new CompraModel();
-        $compra->setUsuarioID($data->Usuario);
+        
+        $compra->setUsuarioID($data->Empleado);
         $compra->setProveedorID($data->Proveedor);
-        $compra->setFechaCompra($data->FechaCompra);
-        //$compra->setProductoID($data->Producto);
+        $compra->setFechaCompra(date("Y-m-d H:i:s", strtotime($data->Fecha)));
+
+        $detalleList =[];
+        foreach($data->Productos as $p){
+            $detalle = new DetalleCompraModel();
+            $detalle->setProductoID($p->Producto);
+            $detalle->setCantidad($p->Cantidad);
+            array_push($detalleList, $detalle);
+        }
+        $compra->setDetalleCompra($detalleList);
 
         $resultado =  $compra->save();
         $resultado = ($resultado === "correct") ? json_encode(CompraModel::getAllAdmin()) : $resultado;
@@ -267,10 +287,10 @@ class AdminController
     public function eliminarCompra()
     {
         $data = json_decode(file_get_contents("php://input"));
-        $proveedor = new CompraModel();
-        $proveedor->setProveedorID($data->ProveedorID);
-        $result = $proveedor->delete();
-        $result = ($result === "correct") ? json_encode(CompraModel::getAll()) : $result;
+        $compra = new CompraModel();
+        $compra->setCompraID($data->CodigoCompra);
+        $result = $compra->delete();
+        $result = ($result === "correct") ? json_encode(CompraModel::getAllAdmin()) : $result;
         echo $result;
     }
 

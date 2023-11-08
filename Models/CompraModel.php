@@ -194,19 +194,19 @@ class CompraModel implements JsonSerializable{
 
 public function save(){
     $conn = new conexion();
-   $query = "EXEC SP_CrearCompra :usuario, :proveedor, :fecha, :producto";
+   $query = "EXEC SP_CrearCompra :usuario, :proveedor, :fecha, :productos";
     try{
         $result = $conn->getConnection()->prepare($query);
         $result->bindValue(":usuario", $this->UsuarioID);
-        $result->bindValue(":proveedor", $this->proveedor);
-        $result->bindValue(":fecha", $this->fecha);
-        $result->bindValue(":producto", $this->producto);
+        $result->bindValue(":proveedor", $this->ProveedorID);
+        $result->bindValue(":fecha", $this->FechaCompra);
+        $result->bindValue(":productos", json_encode($this->DetalleCompra));
         
         $result->execute();
 
         return "correct";
     }catch(PDOException $e){
-        return "error";
+        return $e;
     }
     
 }

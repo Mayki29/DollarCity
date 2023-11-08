@@ -46,13 +46,13 @@ async function registrarCompra() {
     const formularioCompra = document.getElementById("frmRegistrarCompra");
 
     let compra = {};
-    compra.Empleado = formularioCompra.querySelector("#empleado").value;
-    compra.Proveedor = formularioCompra.querySelector("#proveedor").value;
-    compra.Fecha = formularioCompra.querySelector("#fecha").value;
+    compra.Empleado = formularioCompra.txtIdEmpleado.value;
+    compra.Proveedor = formularioCompra.slcProveedor.value;
+    compra.Fecha = formularioCompra.dtFecha.value;
 
     // Obtén los productos seleccionados
-    const productosSeleccionados = formularioCompra.querySelectorAll(".productoCompra");
-    const cantidadesSeleccionadas = formularioCompra.querySelectorAll(".cantidadCompra");
+    const productosSeleccionados = formularioCompra.querySelectorAll(".productoCompraL");
+    const cantidadesSeleccionadas = formularioCompra.querySelectorAll(".cantidadCompraL");
 
     compra.Productos = [];
     for (let i = 0; i < productosSeleccionados.length; i++) {
@@ -62,8 +62,8 @@ async function registrarCompra() {
         });
     }
 
-    compra.Subtotal = formularioCompra.querySelector("#subtotal").value;
-    compra.Total = formularioCompra.querySelector("#total").value;
+    //compra.Subtotal = formularioCompra.querySelector("#subtotal").value;
+    //compra.Total = formularioCompra.querySelector("#total").value;
 
     const request = await fetch('http://localhost/DollarCity/admin/registrarcompra', {
         method: 'POST',
@@ -75,8 +75,9 @@ async function registrarCompra() {
 
     const resp = await request.json();
 
-    if (resp !== "error") {
-        cargarTablaCompras(resp);
+    if (resp != "error") {
+        location.href = 'http://localhost/DollarCity/admin/compras';
+        //cargarTablaCompras(resp);
         
     } else {
         alert("Error al registrar la compra");
@@ -144,8 +145,9 @@ async function eliminarCompra() {
 
     const resp = await request.json();
 
-    if (resp !== "error") {
-        cargarTablaCompras(resp);
+    if (resp != "error") {
+        //cargarTablaCompras(resp);
+        location.href = 'http://localhost/DollarCity/admin/compras';
     
     } else {
         alert("Error al eliminar la compra");
@@ -173,3 +175,36 @@ function cargarTablaDetalleCompra(idCompra){
 
     document.getElementById("tbDetalleCompra").querySelector("tbody").innerHTML = filas;
 }
+
+async function cargarDataListProductos(){
+    let producto = document.getElementById("txtProductosAgregar").value;
+    let dataList = document.getElementById("dlOpcionesProductos");
+
+    const request = await fetch('http://localhost/DollarCity/admin/buscarproducto/'+producto, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    });
+
+    const respProductos = await request.json();
+    let options = '';
+
+    for(let p of respProductos){
+        options += '<option value="'+p.Nombre+'"></option>'
+    }
+
+    dataList.innerHTML = options;
+}
+
+/*function buscarProductoPorIdLocal(id){
+    let prod;
+    for(let producto of dataProductos){
+        if (compra.ProductoID === id.toString()){
+            prod = producto;
+            return prod;
+
+        }
+    }
+    return null;
+}*/

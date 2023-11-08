@@ -19,13 +19,20 @@ $controller = $_GET['controller'];
 $action = $_GET['action'];
 $id = $_GET['id'];
 
-if (empty($action))
+if (empty($action)){
     $action = "index";
+}
 
 $ctrlName = $controller . "Controller";
 include "./Controllers/$ctrlName.php";
 $ctrl = new $ctrlName;
-$ctrl->{$action}();
+
+if(empty($id)){
+    $ctrl->{$action}();
+}else{
+    $ctrl->{$action}($id);
+}
+
 
 
 ?>

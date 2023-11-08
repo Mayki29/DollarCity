@@ -1,4 +1,6 @@
-<?php $url_host = "http://localhost/DollarCity/"; ?>
+<?php $url_host = "http://localhost/DollarCity/"; 
+session_start();
+?>
 
 <!DOCTYPE html>
 <html lang="en">
