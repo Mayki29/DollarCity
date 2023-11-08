@@ -2,7 +2,9 @@
 class CompraModel implements JsonSerializable{
     private $CompraID;
     private $UsuarioID;
+    private $Usuario;
     private $ProveedorID;
+    private $Proveedor;
     private $FechaCompra;
     private $TotalCompra;
     private $DetalleCompraID;
@@ -29,6 +31,16 @@ class CompraModel implements JsonSerializable{
     {
         $this->UsuarioID = $UsuarioID;
     }
+    public function getUsuario()
+    {
+        return $this->Usuario;
+    }
+
+    public function setUsuario($Usuario)
+    {
+        $this->Usuario = $Usuario;
+
+    }
 
     public function getProveedorID()
     {
@@ -38,6 +50,15 @@ class CompraModel implements JsonSerializable{
     public function setProveedorID($ProveedorID)
     {
         $this->ProveedorID = $ProveedorID;
+    }
+    public function getProveedor()
+    {
+        return $this->Proveedor;
+    }
+
+    public function setProveedor($Proveedor)
+    {
+        $this->Proveedor = $Proveedor;
     }
 
     public function getFechaCompra()
@@ -100,7 +121,9 @@ class CompraModel implements JsonSerializable{
         return [
             'CompraID' => $this->CompraID,
             'UsuarioID' => $this->UsuarioID,
+            'Usuario' => $this->Usuario,
             'ProveedorID' => $this->ProveedorID,
+            'Proveedor' => $this->Proveedor,
             'FechaCompra' => $this->FechaCompra,
             'TotalCompra' => $this->TotalCompra,
             'DetalleCompraID' => $this->DetalleCompraID,
@@ -118,7 +141,53 @@ class CompraModel implements JsonSerializable{
 
 
     public static function getAllAdmin(){
-      
+        $conn = new conexion();
+        $prepare = $conn->getConnection()->prepare("EXEC SP_ListarCompras");
+        $prepare->execute();
+        $resultado = $prepare->fetchAll(PDO::FETCH_ASSOC);
+        $listadetalle = [];
+        $listaComp = [];
+        $idControl = null;
+        foreach ($resultado as $compra) {
+            if ($idControl != $compra["CompraID"]) {
+                $idControl = $compra["CompraID"];
+
+                $empleado = new UsuarioModel();
+                $empleado->setUsuarioID($compra["UsuarioID"]);
+                $empleado->setNombres($compra["Nombres"]);
+                $empleado->setApellidos($compra["Apellidos"]);
+                
+                $proveedor = new ProveedorModel();
+                $proveedor->setProveedorID($compra["ProveedorID"]);
+                $proveedor->setRazonSocial($compra["RazonSocial"]);
+                
+                $c = new CompraModel();
+                
+                $c->setCompraID($compra["CompraID"]);
+                $c->setUsuario($empleado);
+                $c->setProveedor($proveedor);
+                $c->setFechaCompra($compra["FechaCompra"]);
+                $c->setTotalCompra($compra["TotalCompra"]);
+                foreach ($resultado as $dtcompra) {
+                    if ($idControl == $dtcompra["CompraID"]) {
+                        $producto = new ProductoModel();
+                        $producto->setProductoID($dtcompra["ProductoID"]);
+                        $producto->setNombre($dtcompra["NombreProducto"]);
+
+                        $dc = new DetalleCompraModel();
+                        $dc->setDetalleCompraID($dtcompra["DetalleCompraID"]);
+                        $dc->setProducto($producto);
+                        $dc->setCantidad($dtcompra["Cantidad"]);
+                        $dc->setSubTotal($dtcompra["SubTotal"]);
+                        array_push($listadetalle, $dc);
+                    }
+                }
+                $c->setDetalleCompra($listadetalle);
+                array_push($listaComp, $c);
+                $listadetalle = [];
+            }
+        }
+        return $listaComp;
     }
 
 
@@ -177,6 +246,11 @@ public function delete(){
     }
 }
 
+
+
+    
+
+    
 }
 
 ?>

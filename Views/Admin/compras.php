@@ -82,8 +82,8 @@ include("./Views/Layouts/header-adminComprasyVentas.php");
                                         <?php foreach($compras as $compra): ?>
                                             <tr id="tr<?=$compra->getCompraID()?>">
                                                 <th><?=$compra->getCompraID()?></th>
-                                                <td><?=$compra->getUsuarioID()?></td>
-                                                <td><?=$compra->getProveedorID()?></td>
+                                                <td><?=$compra->getUsuario()->getNombres()." ".$compra->getUsuario()->getApellidos()?></td>
+                                                <td><?=$compra->getProveedor()->getRazonSocial()?></td>
                                                 <td><?=$compra->getFechaCompra()?></td>
                                                 <td><?=$compra->getTotalCompra()?></td>
                                         
@@ -463,14 +463,14 @@ include("./Views/Layouts/header-adminComprasyVentas.php");
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    <?php foreach($detallesCompra as $detalleCompra): ?>
-                                        <tr id="tr<?=$detalleCompra->getDetalleCompraID()?>"> 
-                                            <td><?=$detalleCompra->getDetalleCompraID()?></td>
-                                            <td><?=$detalleCompra->getProductoID()?></td>
-                                            <td><?=$detalleCompra->getCantidad()?></td>
-                                            <td><?=$detalleCompra->getSubTotal()?></td>
+                                    <!--?php foreach($detallesCompra as $detalleCompra): ?>
+                                        <tr id="tr< ?=$detalleCompra->getDetalleCompraID()?>"> 
+                                            <td>< ?=$detalleCompra->getDetalleCompraID()?></td>
+                                            <td>< ?=$detalleCompra->getProductoID()?></td>
+                                            <td>< ?=$detalleCompra->getCantidad()?></td>
+                                            <td>< ?=$detalleCompra->getSubTotal()?></td>
                                         </tr>
-                                    <?php endforeach ?>
+                                    < ?php endforeach ?-->
                                     </tbody>
                                  </table>
                                 </div>
