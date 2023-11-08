@@ -27,8 +27,9 @@ class AdminController
     //COMPRAS
     public function compras(){
         $compras = CompraModel ::getAll();
-        
-        view("admin.compras",["compras"=>$compras]);
+        $proveedores = ProveedorModel::getAll();
+        $detallesCompra = DetalleCompraModel :: getAll();
+        view("admin.compras",["compras"=>$compras, "proveedores"=>$proveedores, "detallesCompra"=>$detallesCompra]);
     }
 
 

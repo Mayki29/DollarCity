@@ -151,10 +151,10 @@ include("./Views/Layouts/header-adminComprasyVentas.php");
                                                       
                                                     </div>
                                                     <select class="custom-select" id="inputGroupSelect01">
-                                                      <option selected>Elige un proveedor...</option>
-                                                      <option value="1">proveedor1</option>
-                                                      <option value="2">proveedor2</option>
-                                                      <option value="3">proveedor3</option>
+                                                    <?php foreach($proveedores as $proveedor):?> 
+                                                    <option value="<?= $proveedor->getProveedorID()?>"><?= $proveedor->getRazonSocial()?>
+                                                      </option>
+                                                      <?php endforeach?>
                                                     </select>
                                                   </div>
                                             </tr>
@@ -459,14 +459,18 @@ include("./Views/Layouts/header-adminComprasyVentas.php");
                                             <th>Codigo</th>
                                             <th>Producto</th>
                                             <th>Cantidad</th>
+                                            <th>Subtotal</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Gaseosa Coca Cola</td>
-                                            <td>10</td>
+                                    <?php foreach($detallesCompra as $detalleCompra): ?>
+                                        <tr id="tr<?=$detalleCompra->getDetalleCompraID()?>"> 
+                                            <td><?=$detalleCompra->getDetalleCompraID()?></td>
+                                            <td><?=$detalleCompra->getProductoID()?></td>
+                                            <td><?=$detalleCompra->getCantidad()?></td>
+                                            <td><?=$detalleCompra->getSubTotal()?></td>
                                         </tr>
+                                    <?php endforeach ?>
                                     </tbody>
                                  </table>
                                 </div>

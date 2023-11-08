@@ -5,7 +5,7 @@ class DetalleCompraModel implements JsonSerializable{
     private $ProductoID;
     private $Producto;
     private $Cantidad;
-    private $Subtotal;
+    private $SubTotal;
 
 
     public function getDetalleCompraID()
@@ -43,7 +43,7 @@ class DetalleCompraModel implements JsonSerializable{
         return $this->Producto;
     }
 
-    public function setProductoID($Producto)
+    public function setProducto($Producto)
     {
         $this->Producto = $Producto;
     }
@@ -53,23 +53,22 @@ class DetalleCompraModel implements JsonSerializable{
         return $this->Cantidad;
     }
 
-    public function setProductoID($Cantidad)
+    public function setCantidad($Cantidad)
     {
-        $this->Producto = $Cantidad;
+        $this->Cantidad = $Cantidad;
     }
-    public function setSubtotal($Subtotal)
+
+    public function getSubTotal()
     {
-        $this->Subtotal = $Subtotal;
+        return $this->SubTotal;
+    }
+    public function setSubTotal($SubTotal)
+    {
+        $this->SubTotal = $SubTotal;
     }
 
     
 
-    private $DetalleCompraID;
-    private $CompraID;
-    private $ProductoID;
-    private $Producto;
-    private $Cantidad;
-    private $Subtotal;
 
 
     public function jsonSerialize()
@@ -80,18 +79,17 @@ class DetalleCompraModel implements JsonSerializable{
             'ProductoID' => $this->ProductoID,
             'Producto' => $this->Producto,
             'Cantidad' => $this->Cantidad,
-            'Subtotal' => $this->SubtotalD,
+            'SubTotal' => $this->SubTotal,
         ];
     }
 
-   /* public static function getAll(){
+
+    public static function getAll(){
         $conn = new conexion();
-        $query = "EXEC SP_ListarCategorias";
-        $result = $conn->getConnection()->prepare($query);
-        $result->execute();
-        return $result->fetchAll(PDO::FETCH_CLASS, CategoriaModel::class);
+        $prepare = $conn->getConnection()->prepare("SELECT top(12)* FROM DetalleCompra");
+        $prepare->execute();
+        return $prepare->fetchAll(PDO::FETCH_CLASS,DetalleCompraModel::class);
     }
-*/
 
 }
 

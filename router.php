@@ -8,6 +8,7 @@ include_once("Models/ProductoModel.php");
 include_once("Models/CategoriaModel.php");
 include_once("Models/ProveedorModel.php");
 include_once("Models/CompraModel.php");
+include_once("Models/DetalleCompraModel.php");
 
 include_once("utils/defaults.php");
 
