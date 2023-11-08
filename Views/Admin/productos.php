@@ -244,7 +244,9 @@ include("./Views/Layouts/header-admin.php");
                         </tbody>
                     </table>
                 </div>
+            
             </div>
+            
         </div>
 
     </div>

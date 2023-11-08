@@ -296,28 +296,29 @@ include("./Views/Layouts/header-adminComprasyVentas.php");
                                 <!--FIN DEL FORMULARIO PARA AGREGAR LA COMPRA-->
 
 
-                                 <!-- MODAL ELIMINAR COMPRA-->
-                        <div class="modal fade "  id="EliminarCompra" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <h5 class="modal-title" id="staticBackdropLabel">Eliminar Compra</h5>
-                              <input type="number" id="deleteCod" name="deleteCod" style="display: none;">
-                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                              </button>
-                            </div>
-                            <div class="modal-body">
-                          ¿Estas seguro de que quieres cancelar esta compra?
-                            </div>
-                            <div class="modal-footer">
-                              <button type="button" class="btn btn-outline-success" data-dismiss="modal">No</button>
-                              <button type="button" class="btn btn-outline-primary">Sí</button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                       <!-- FIN DEL MODAL PARA ELIMINAR COMPRA-->
+                         <!-- MODAL ELIMINAR COMPRA -->
+<div class="modal fade" id="EliminarCompra" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Eliminar Compra</h5>
+                <input type="number" id="deleteCod" name="deleteCod" style="display: none;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                ¿Estás seguro de que quieres cancelar esta compra?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success" data-dismiss="modal">No</button>
+                <button type="button" class="btn btn-outline-primary" onclick="eliminarCompra()">Sí</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- FIN DEL MODAL PARA ELIMINAR COMPRA -->
+
 
 
                        
@@ -432,7 +433,7 @@ include("./Views/Layouts/header-adminComprasyVentas.php");
                             </div>
                             <div class="modal-footer">
                               <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
-                              <button type="button" class="btn btn-outline-success">Guardar</button>
+                              <button type="button" class="btn btn-outline-success" onclick="modificarCompra()">Guardar</button>
                             </div>
                           </div>
                         </div>
@@ -487,7 +488,7 @@ include("./Views/Layouts/header-adminComprasyVentas.php");
                         <?php include("./Views/Layouts/footer-adminComprasyVentas.php");?>
 
                         <script src="<?=$url_host?>assets/js/admin/graficoCompra.js"></script>
-                        <script src="<?php echo $url_host ?>assets/js/admin/compras.js"></script>
+                        <script src="<?=$url_host ?>assets/js/admin/compras.js"></script>
 
              </body>
             </html>
