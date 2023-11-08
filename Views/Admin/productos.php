@@ -52,6 +52,7 @@ include("./Views/Layouts/header-admin.php");
                                 </td>
 
                             </tr-->
+
                             <tr>
                                 <td><label for="nombre">Nombre: </label></td>
                                 <td> <input type="text" class="form-control" placeholder="Nombre del producto..."
@@ -85,11 +86,25 @@ include("./Views/Layouts/header-admin.php");
                                     </select>
                                     <!--input type="text" class="form-control" name="categoria" placeholder="Categoria..." id="categoria"></td-->
                             </tr>
+                     
+
+                    
+                            
 
                         </table>
 
                         <hr>
-                        <!-- Otros campos del formulario -->
+                        <!--IMAGEN-->
+                        <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                              <span class="input-group-text" id="inputGroupFileAddon01"></span>
+                            </div>
+                            <div class="custom-file">
+                              <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+                             <label class="custom-file-label" for="inputGroupFile01">Subir imagen</label>
+                         </div>
+                    </div>
+              
                         <button type="button" onclick="registrarProducto()" class="btn btn-success"
                             style="display: block;width: 100%;text-align: center;">
                             Guardar
@@ -152,7 +167,17 @@ include("./Views/Layouts/header-admin.php");
                                         <?php endforeach?>
                                     </select></td>
                             </tr>
-                        </table>
+                        </table>    
+                        <hr>
+                        <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                              <span class="input-group-text" id="inputGroupFileAddon01"></span>
+                            </div>
+                            <div class="custom-file">
+                              <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+                             <label class="custom-file-label" for="inputGroupFile01">Subir imagen</label>
+                         </div>
+                    </div>
 
                         <hr>
                         <!-- Otros campos del formulario -->

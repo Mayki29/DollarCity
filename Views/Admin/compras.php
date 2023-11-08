@@ -131,7 +131,7 @@ include("./Views/Layouts/header-adminComprasyVentas.php");
                                     </div>
                                     <div class="modal-body">
                                      
-                                    <form>
+                                    <form id="frmRegistrarCompra">
 
                                         <!-- Agrega aquí los campos del formulario para agregar datos -->
                                         <table  >
@@ -241,7 +241,7 @@ include("./Views/Layouts/header-adminComprasyVentas.php");
                                     </div>
                                     <div class="modal-footer">
                                       <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cerrar</button>
-                                      <button type="button" class="btn btn-outline-success">Guardar</button>
+                                      <button type="button" class="btn btn-outline-success" onclick="registrarCompra()">Guardar</button>
                                     </div>
                                   </div>
                                 </div>
@@ -463,14 +463,13 @@ include("./Views/Layouts/header-adminComprasyVentas.php");
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    <!--?php foreach($detallesCompra as $detalleCompra): ?>
-                                        <tr id="tr< ?=$detalleCompra->getDetalleCompraID()?>"> 
+                                   <!-- < tr id="tr< ?=$detalleCompra->getDetalleCompraID()?>"> 
                                             <td>< ?=$detalleCompra->getDetalleCompraID()?></td>
                                             <td>< ?=$detalleCompra->getProductoID()?></td>
                                             <td>< ?=$detalleCompra->getCantidad()?></td>
                                             <td>< ?=$detalleCompra->getSubTotal()?></td>
                                         </tr>
-                                    < ?php endforeach ?-->
+                                    < ?php endforeach ? > -->
                                     </tbody>
                                  </table>
                                 </div>

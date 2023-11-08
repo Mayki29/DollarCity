@@ -132,6 +132,7 @@ class CompraModel implements JsonSerializable{
         ];
     }
 
+    /*
     public static function getAll(){
         $conn = new conexion();
         $prepare = $conn->getConnection()->prepare("SELECT top(12)* FROM Compra");
@@ -139,7 +140,7 @@ class CompraModel implements JsonSerializable{
         return $prepare->fetchAll(PDO::FETCH_CLASS, CompraModel::class);
     }
 
-
+*/
     public static function getAllAdmin(){
         $conn = new conexion();
         $prepare = $conn->getConnection()->prepare("EXEC SP_ListarCompras");
@@ -193,7 +194,7 @@ class CompraModel implements JsonSerializable{
 
 public function save(){
     $conn = new conexion();
-    /*$query = "EXEC SP_CrearCompra :usuario, :proveedor, :fecha, :producto";
+   $query = "EXEC SP_CrearCompra :usuario, :proveedor, :fecha, :producto";
     try{
         $result = $conn->getConnection()->prepare($query);
         $result->bindValue(":usuario", $this->UsuarioID);
@@ -206,7 +207,7 @@ public function save(){
         return "correct";
     }catch(PDOException $e){
         return "error";
-    }*/
+    }
     
 }
 
