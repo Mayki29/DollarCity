@@ -139,7 +139,7 @@ async function registrarEmpleado() {
     empleado.direccion = formularioRegistrar.direccion.value;
     empleado.numeroTelefono = formularioRegistrar.numero.value;
 
-    const request = await fetch('http://localhost/DOLLARCITYMVC/admin/registrarempleado', {
+    const request = await fetch('http://localhost/DollarCity/admin/registrarempleado', {
         method: 'POST',
         headres: {
             'Content-Type': 'application/json'
@@ -168,7 +168,7 @@ async function modificarEmpleado() {
     empleado.direccion = formularioModificar.direccion.value;
     empleado.numeroTelefono = formularioModificar.numero.value;
 
-    const request = await fetch('http://localhost/DOLLARCITYMVC/admin/modificarempleado', {
+    const request = await fetch('http://localhost/DollarCity/admin/modificarempleado', {
         method: 'POST',
         headres: {
             'Content-Type': 'application/json'
@@ -191,7 +191,7 @@ async function eliminarEmpleado(){
     let empleado = {};
     empleado.usuarioId = formularioEliminar.codigo.value;
 
-    const request = await fetch('http://localhost/DOLLARCITYMVC/admin/eliminarempleado', {
+    const request = await fetch('http://localhost/DollarCity/admin/eliminarempleado', {
         method: 'POST',
         headres: {
             'Content-Type': 'application/json'

@@ -79,6 +79,8 @@ function eventosModalEliminar(){
       modal.style.display = "none";
     });
 }
+
+
 function cerrarModalEliminar(){
     document.getElementById("confirmarEliminarModal").style.display = "none";
 }
@@ -89,6 +91,7 @@ function cerrarModalEliminar(){
 function setCodigoEliminar(id){
   document.getElementById("deleteCod").value = id;
 }
+
 //rellenar formulario con datos del empleado para modificar
 function rellenarFormulario(id) {
     const celdas= document.getElementById("tr" + id).getElementsByTagName("td");
@@ -133,6 +136,9 @@ function cargarTablaProductos(productos) {
     eventosModalModificar();
     eventosModalEliminar();
 }
+
+
+
 async function registrarProducto() {
     const formularioRegistrar = document.getElementById("frmResgistrarProducto");
 
@@ -144,7 +150,7 @@ async function registrarProducto() {
     producto.CategoriaID = formularioRegistrar.categoria.value;
 
 
-    const request = await fetch('http://localhost/DOLLARCITYMVC/admin/registrarproducto', {
+    const request = await fetch('http://localhost/DollarCity/admin/registrarproducto', {
         method: 'POST',
         headres: {
             'Content-Type': 'application/json'
@@ -172,7 +178,7 @@ async function modificarProducto() {
     producto.CantidadEnStock = formularioModificar.stock.value;
     producto.CategoriaID = formularioModificar.categoria.value;
 
-    const request = await fetch('http://localhost/DOLLARCITYMVC/admin/modificarproducto', {
+    const request = await fetch('http://localhost/DollarCity/admin/modificarproducto', {
         method: 'POST',
         headres: {
             'Content-Type': 'application/json'
@@ -190,12 +196,14 @@ async function modificarProducto() {
         alert("Error");
     }
 }
+
+
 async function eliminarProducto(){
     const formularioEliminar = document.getElementById("frmEliminarProducto")
     let producto = {};
     producto.ProductoID = formularioEliminar.deleteCod.value;
 
-    const request = await fetch('http://localhost/DOLLARCITYMVC/admin/eliminarproducto', {
+    const request = await fetch('http://localhost/DollarCity/admin/eliminarproducto', {
         method: 'POST',
         headres: {
             'Content-Type': 'application/json'

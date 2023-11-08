@@ -5,8 +5,7 @@ class CompraModel implements JsonSerializable{
     private $ProveedorID;
     private $FechaCompra;
     private $TotalCompra;
-    private $DetalleCompraID;
-    private $DetalleCompra;
+
     private $Estado;
 
 
@@ -61,25 +60,6 @@ class CompraModel implements JsonSerializable{
         $this->TotalCompra = $TotalCompra;
     }
 
-    public function getDetalleCompraID()
-    {
-        return $this->DetalleCompraID;
-    }
-
-    public function setDetalleCompraID($DetalleCompraID)
-    {
-        $this->DetalleCompraID = $DetalleCompraID;
-    }
-
-    public function getDetalleCompra()
-    {
-        return $this->DetalleCompra;
-    }
-
-    public function setDetalleCompra($DetalleCompra)
-    {
-        $this->DetalleCompra= $DetalleCompra;
-    }
 
     public function getEstado()
     {
@@ -107,11 +87,74 @@ class CompraModel implements JsonSerializable{
             'Estado' => $this->Estado,
         ];
     }
-/*
+
     public static function getAll(){
-    
+        $conn = new conexion();
+        $prepare = $conn->getConnection()->prepare("SELECT top(12)* FROM Compra");
+        $prepare->execute();
+        return $prepare->fetchAll(PDO::FETCH_CLASS, CompraModel::class);
     }
-*/
+
+
+    public static function getAllAdmin(){
+      
+    }
+
+
+public function save(){
+    $conn = new conexion();
+    $query = "EXEC SP_CrearCompra :usuario, :proveedor, :fecha, :producto";
+    try{
+        $result = $conn->getConnection()->prepare($query);
+        $result->bindValue(":usuario", $this->usuario);
+        $result->bindValue(":proveedor", $this->proveedor);
+        $result->bindValue(":fecha", $this->fecha);
+        $result->bindValue(":producto", $this->producto);
+        
+        $result->execute();
+
+        return "correct";
+    }catch(PDOException $e){
+        return "error";
+    }
+    
+}
+
+
+public function edit(){
+    $conn = new conexion();
+    $query = "EXEC SP_ActualizarCompra :usuario, :proveedor, :fecha, :producto, :cantidad, :subtotal, :total";
+    try{
+        $result = $conn->getConnection()->prepare($query);
+        $result->bindValue(":usuario", $this->UsuarioID);
+        $result->bindValue(":proveedor", $this->ProveedorID);
+        $result->bindValue(":fecha", $this->FechaCompra);
+        $result->bindValue(":producto", $this->producto);
+        $result->bindValue(":cantidad", $this->Cantidad);
+        $result->bindValue(":catId", $this->CategoriaID);
+        
+        $result->execute();
+
+        return "correct";
+    }catch(PDOException $e){
+        return "error";
+    }
+}
+
+public function delete(){
+    $conn = new conexion();
+    $query = "EXEC SP_DeshabilitarCompra :id";
+    try{
+        $result = $conn->getConnection()->prepare($query);
+        $result->bindValue(":id", $this->CompraID);
+        
+        $result->execute();
+
+        return "correct";
+    }catch(PDOException $e){
+        return "error";
+    }
+}
 
 }
 

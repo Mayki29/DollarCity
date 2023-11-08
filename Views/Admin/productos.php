@@ -74,6 +74,7 @@ include("./Views/Layouts/header-admin.php");
                                         min="0" required>
                                 </td>
                             </tr>
+                            
                             <tr>
                                 <td><label for="categoria">Categoria: </label></td>
                                 <td><select class="form-control" name="categoria" id="slCategoria">

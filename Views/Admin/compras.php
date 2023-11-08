@@ -64,7 +64,6 @@ include("./Views/Layouts/header-adminComprasyVentas.php");
                                                 <th>Empleado</th>
                                                 <th>Proveedor</th>
                                                 <th>Fecha</th>
-                                                
                                                 <th>Total</th>
                                                
                                                 <th>
@@ -80,20 +79,22 @@ include("./Views/Layouts/header-adminComprasyVentas.php");
                                             </tr>
                                         </thead>
                                         <tbody class="table-hover">
-                                            <tr>
-                                                <th>1</th>
-                                                <td>Juan</td>
-                                                <td>CocaCola</td>
-                                                <td>12-09-2023</td>
-                                         
-                                                <td>50</td>
-                                            
+                                        <?php foreach($compras as $compra): ?>
+                                            <tr id="tr<?=$compra->getCompraID()?>">
+                                                <th><?=$compra->getCompraID()?></th>
+                                                <td><?=$compra->getUsuarioID()?></td>
+                                                <td><?=$compra->getProveedorID()?></td>
+                                                <td><?=$compra->getFechaCompra()?></td>
+                                                <td><?=$compra->getTotalCompra()?></td>
+                                        
                                                 <td>
                                                     <div class="btn-group">
                                                         <button class="btn btn-outline-warning " type="button" data-toggle="modal" data-target="#staticBackdrop2"><i
                                                                 class="fas fa-pen"></i></button>
-                                                        <button class="btn btn-outline-danger" type="button" data-toggle="modal" data-target="#EliminarCompra" ><i
-                                                                class="fas fa-trash-alt " ></i></button>
+                                                        <button class="btn btn-outline-danger" type="button" data-toggle="modal" data-target="#EliminarCompra"
+                                                        onclick="setCodigoEliminar(<?=$compra->getCompraID()?>)">
+                                                            <i class="fas fa-trash-alt " ></i>
+                                                        </button>
                                                     </div>
                                                 </td>
                                                 <td>
@@ -105,7 +106,7 @@ include("./Views/Layouts/header-adminComprasyVentas.php");
                                                 </td>
                                                 
                                             </tr>
-                                           
+                                            <?php endforeach ?>
                                          
                                          
 
@@ -296,11 +297,12 @@ include("./Views/Layouts/header-adminComprasyVentas.php");
 
 
                                  <!-- MODAL ELIMINAR COMPRA-->
-                    <div class="modal fade "  id="EliminarCompra" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal fade "  id="EliminarCompra" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                         <div class="modal-dialog">
                           <div class="modal-content">
                             <div class="modal-header">
                               <h5 class="modal-title" id="staticBackdropLabel">Eliminar Compra</h5>
+                              <input type="number" id="deleteCod" name="deleteCod" style="display: none;">
                               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                               </button>
@@ -482,6 +484,7 @@ include("./Views/Layouts/header-adminComprasyVentas.php");
                         <?php include("./Views/Layouts/footer-adminComprasyVentas.php");?>
 
                         <script src="<?=$url_host?>assets/js/admin/graficoCompra.js"></script>
+                        <script src="<?php echo $url_host ?>assets/js/admin/compras.js"></script>
 
              </body>
             </html>

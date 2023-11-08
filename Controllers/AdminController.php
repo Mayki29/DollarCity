@@ -23,10 +23,16 @@ class AdminController
         $grafico = json_encode(ProductoModel::getstockPorCategoria());
         view("admin.productos",["productos"=>$productos, "categorias"=>$categorias, "grafico"=>$grafico]);
     }
+
+    //COMPRAS
     public function compras(){
-   
-        view("admin.compras");
+        $compras = CompraModel ::getAll();
+        
+        view("admin.compras",["compras"=>$compras]);
     }
+
+
+
 
     public function ventas(){
    
@@ -80,6 +86,43 @@ class AdminController
         $resultado = ($resultado === "correct")? json_encode(ProductoModel::getAllAdmin()) : $resultado;
         echo $resultado;
     }
+
+
+
+#region Compras
+public function registrarCompra(){
+    $data = json_decode(file_get_contents('php://input'));
+    $Compra = new CompraModel();
+    $compra->setUsuario($data->Usuario);
+    $compra->setProveedor($data->Proveedor);
+    $compra->setFechaCompra($data->FechaCompra);
+    $compra->setProducto($data->Producto);
+
+    $resultado =  $compra->save();
+    $resultado = ($resultado === "correct")? json_encode(CompraModel::getAllAdmin()) : $resultado;
+
+    echo $resultado;
+}
+
+
+public function eliminarCompra(){
+    $data = json_decode(file_get_contents("php://input"));
+    $proveedor = new CompraModel();
+    $proveedor->setProveedorID($data->ProveedorID);
+    $result = $proveedor->delete();
+    $result = ($result === "correct")? json_encode(CompraModel::getAll()):$result;
+    echo $result;
+
+}
+
+
+
+
+
+
+
+
+
 
 #region Proveedor
 
