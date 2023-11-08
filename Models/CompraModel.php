@@ -5,7 +5,8 @@ class CompraModel implements JsonSerializable{
     private $ProveedorID;
     private $FechaCompra;
     private $TotalCompra;
-
+    private $DetalleCompraID;
+    private $DetalleCompra;
     private $Estado;
 
 
@@ -60,6 +61,26 @@ class CompraModel implements JsonSerializable{
         $this->TotalCompra = $TotalCompra;
     }
 
+    public function getDetalleCompraID()
+    {
+        return $this->DetalleCompraID;
+    }
+
+    public function setDetalleCompraID($DetalleCompraID)
+    {
+        $this->DetalleCompraID = $DetalleCompraID;
+    }
+
+    public function getDetalleCompra()
+    {
+        return $this->DetalleCompraID;
+    }
+
+    public function setDetalleCompra($DetalleCompra)
+    {
+        $this->DetalleCompra = $DetalleCompra;
+    }
+
 
     public function getEstado()
     {
@@ -103,10 +124,10 @@ class CompraModel implements JsonSerializable{
 
 public function save(){
     $conn = new conexion();
-    $query = "EXEC SP_CrearCompra :usuario, :proveedor, :fecha, :producto";
+    /*$query = "EXEC SP_CrearCompra :usuario, :proveedor, :fecha, :producto";
     try{
         $result = $conn->getConnection()->prepare($query);
-        $result->bindValue(":usuario", $this->usuario);
+        $result->bindValue(":usuario", $this->UsuarioID);
         $result->bindValue(":proveedor", $this->proveedor);
         $result->bindValue(":fecha", $this->fecha);
         $result->bindValue(":producto", $this->producto);
@@ -116,14 +137,14 @@ public function save(){
         return "correct";
     }catch(PDOException $e){
         return "error";
-    }
+    }*/
     
 }
 
 
 public function edit(){
     $conn = new conexion();
-    $query = "EXEC SP_ActualizarCompra :usuario, :proveedor, :fecha, :producto, :cantidad, :subtotal, :total";
+    /*$query = "EXEC SP_ActualizarCompra :usuario, :proveedor, :fecha, :producto, :cantidad, :subtotal, :total";
     try{
         $result = $conn->getConnection()->prepare($query);
         $result->bindValue(":usuario", $this->UsuarioID);
@@ -138,7 +159,7 @@ public function edit(){
         return "correct";
     }catch(PDOException $e){
         return "error";
-    }
+    }*/
 }
 
 public function delete(){

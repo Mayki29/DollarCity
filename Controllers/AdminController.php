@@ -88,16 +88,16 @@ class AdminController
         echo $resultado;
     }
 
-
+//aaa
 
 #region Compras
 public function registrarCompra(){
     $data = json_decode(file_get_contents('php://input'));
-    $Compra = new CompraModel();
-    $compra->setUsuario($data->Usuario);
-    $compra->setProveedor($data->Proveedor);
+    $compra = new CompraModel();
+    $compra->setUsuarioID($data->Usuario);
+    $compra->setProveedorID($data->Proveedor);
     $compra->setFechaCompra($data->FechaCompra);
-    $compra->setProducto($data->Producto);
+    //$compra->setProductoID($data->Producto);
 
     $resultado =  $compra->save();
     $resultado = ($resultado === "correct")? json_encode(CompraModel::getAllAdmin()) : $resultado;

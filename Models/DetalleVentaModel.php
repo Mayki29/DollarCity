@@ -20,7 +20,7 @@ class DetalleVentaModel implements JsonSerializable{
 
     public function getVentaID()
     {
-        return $this->UsuarioID;
+        return $this->VentaID;
     }
 
     public function setVentaID($VentaID)
@@ -73,14 +73,6 @@ class DetalleVentaModel implements JsonSerializable{
     {
         $this->Estado= $Estado;
     }
-
-  
-    private $DetalleVentaID;
-    private $VentaID;
-    private $ProductoID;
-    private $Cantidad;
-    private $Subtotal;
-    private $Estado;
 
 
     public function jsonSerialize()
