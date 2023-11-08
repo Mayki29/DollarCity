@@ -23,6 +23,13 @@ class AdminController
         view("admin.productos", ["productos" => $productos, "categorias" => $categorias, "grafico" => $grafico]);
     }
 
+
+    public function graph(){
+        $grafico = json_encode(ProductoModel::getstockPorCategoria());
+
+        echo $grafico;
+    }
+
     //COMPRAS
     public function compras()
     {
@@ -185,9 +192,16 @@ class AdminController
         $producto->setCategoriaID($data->CategoriaID);
 
         $resultado =  $producto->save();
-        $resultado = ($resultado === "correct") ? json_encode(ProductoModel::getAllAdmin()) : $resultado;
 
-        echo $resultado;
+        if($resultado === "correct"){
+            $productos = ProductoModel::getAllAdmin();
+            $grafico = ProductoModel::getstockPorCategoria();
+
+            $resultado = array("Productos"=>$productos, "Grafico"=>$grafico);
+            echo json_encode($resultado);
+        }else{
+            echo $resultado;
+        }
     }
 
     public function modificarProducto()
@@ -202,8 +216,15 @@ class AdminController
         $producto->setCategoriaID($data->CategoriaID);
 
         $resultado = $producto->edit();
-        $resultado = ($resultado === "correct") ? json_encode(ProductoModel::getAllAdmin()) : $resultado;
-        echo $resultado;
+        if($resultado === "correct"){
+            $productos = ProductoModel::getAllAdmin();
+            $grafico = ProductoModel::getstockPorCategoria();
+
+            $resultado = array("Productos"=>$productos, "Grafico"=>$grafico);
+            echo json_encode($resultado);
+        }else{
+            echo $resultado;
+        }
     }
 
     public function eliminarProducto()
@@ -213,8 +234,15 @@ class AdminController
         $producto->setProductoID($data->ProductoID);
 
         $resultado = $producto->delete();
-        $resultado = ($resultado === "correct") ? json_encode(ProductoModel::getAllAdmin()) : $resultado;
-        echo $resultado;
+        if($resultado === "correct"){
+            $productos = ProductoModel::getAllAdmin();
+            $grafico = ProductoModel::getstockPorCategoria();
+
+            $resultado = array("Productos"=>$productos, "Grafico"=>$grafico);
+            echo json_encode($resultado);
+        }else{
+            echo $resultado;
+        }
     }
 
     #endregion

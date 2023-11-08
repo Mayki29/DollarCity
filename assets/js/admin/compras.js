@@ -27,3 +27,24 @@ function setCodigoEliminar(id){
         alert("Error");
     }
 }
+
+
+function cargarTablaDetalleCompra(idCompra){
+
+    let objCompra = [];
+    for(let compra of dataDetalle){
+        if (compra.CompraID === idCompra.toString()){
+            objCompra = compra;
+        }
+    }
+    
+    let filas = '';
+    for (let d of objCompra.DetalleCompra) {
+        filas = filas + '<tr id="tr' + d.DetalleCompraID + '"><th>' + d.DetalleCompraID + '</th>' +
+            '<td>' + d.Producto.Nombre+ '</td>' +
+            '<td>' + d.Cantidad+ '</td>' +
+            '<td>S/.<span>' + d.SubTotal + '<span></td></tr>'
+    }
+
+    document.getElementById("tbDetalleCompra").querySelector("tbody").innerHTML = filas;
+}

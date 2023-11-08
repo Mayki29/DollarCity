@@ -161,7 +161,8 @@ async function registrarProducto() {
     const resp = await request.json();
 
     if (resp != "error") {
-        cargarTablaProductos(resp);
+        cargarTablaProductos(resp.Productos);
+        actualizarDatos(resp.Grafico);
         cerrarModalRegistro();
 
     } else {
@@ -189,7 +190,8 @@ async function modificarProducto() {
     const resp = await request.json();
 
     if (resp != "error") {
-        cargarTablaProductos(resp);
+        cargarTablaProductos(resp.Productos);
+        actualizarDatos(resp.Grafico);
         cerrarModalModificar();
 
     } else {
@@ -214,7 +216,8 @@ async function eliminarProducto(){
     const resp = await request.json();
 
     if (resp != "error") {
-        cargarTablaProductos(resp);
+        cargarTablaProductos(resp.Productos);
+        actualizarDatos(resp.Grafico);
         cerrarModalEliminar();
 
     } else {
