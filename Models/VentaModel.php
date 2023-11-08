@@ -2,10 +2,10 @@
 class VentaModel implements JsonSerializable{
     private $VentaID;
     private $UsuarioID;
+    private $DetalleVenta;
     private $FechaVenta;
     private $TotalVenta;
     private $Estado;
-
 
     public function getVentaID()
     {
@@ -25,9 +25,8 @@ class VentaModel implements JsonSerializable{
     public function setUsuarioID($UsuarioID)
     {
         $this->UsuarioID = $UsuarioID;
-    }
 
- 
+    }
 
     public function getFechaVenta()
     {
@@ -61,6 +60,15 @@ class VentaModel implements JsonSerializable{
     }
 
 
+    public function getDetalleVenta()
+    {
+        return $this->DetalleVenta;
+    }
+
+    public function setDetalleVenta($DetalleVenta)
+    {
+        $this->DetalleVenta = $DetalleVenta;
+    }
 
     public function jsonSerialize()
     {
@@ -72,11 +80,24 @@ class VentaModel implements JsonSerializable{
             'Estado' => $this->Estado,
         ];
     }
-/*
-    public static function getAll(){
-    
+
+
+
+    public function save(){
+        $conn = new conexion();
+        $query = "EXEC SP_CrearVenta :iduser, :fecha, :json";
+        try{
+            $r = $conn->getConnection()->prepare($query);
+            $r->bindValue(":iduser", $this->UsuarioID);
+            $r->bindValue(":fecha", $this->FechaVenta);
+            $r->bindValue(":json", json_encode($this->DetalleVenta));
+            $r->execute();
+            //echo $r->fetchAll(PDO::FETCH_ASSOC);
+
+        }catch(PDOException $e){
+            echo $e;
+        }
     }
-*/
 
 }
 
