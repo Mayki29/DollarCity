@@ -1,4 +1,4 @@
-<?php $url_host = "http://localhost/DOLLARCITYMVC/" ?>
+<?php $url_host = "http://localhost/DollarCity/" ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,12 +6,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iniciar Sesion</title>
+    <link rel="stylesheet" href="<?= $url_host ?>assets/css/bootstrap.css">
     <link rel="stylesheet" href="<?php echo $url_host ?>assets/css/EstiloFormularioLogin.css">
 
 </head>
 
 <body>
-    
+
     <header>
         <div class="logo">
             <img src="<?php echo $url_host ?>assets/img/logo.png" alt="Dollar City Logo">
@@ -52,9 +53,12 @@
                     <input type="password" name="password" id="txtPassword" required="">
                     <label>Ingresa tu contraseña</label>
                 </div>
+                <div class="alert ocultar" id="mensajeCli" role="alert">
+                        A simple primary alert—check it out!
+                </div>
                 <center>
-                    <input type="submit" name="btnSubmitCli" id="btnSubmitCli" value="Iniciar Sesion">
-                    
+                    <input type="submit" name="btnSubmitCli" id="btnSubmitCli" value="Iniciar Sesion"><br>
+
                     <a onclick="mostrarOpciones()">
                         REGRESAR
                         <span></span>
@@ -63,7 +67,7 @@
                         SALIR
                         <span></span>
                     </a>
-                    <h2 id="message" name="message"></h2>
+                    
                 </center>
 
             </form>
@@ -95,7 +99,7 @@
         </div>
     </div>
     <script src="<?=$url_host?>assets/js/login.js"></script>
-    
+
 </body>
 
 </html>

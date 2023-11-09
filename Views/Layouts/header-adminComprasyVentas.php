@@ -1,11 +1,11 @@
-<?php $url_host = "http://localhost/DollarCity/"; ?>
+<?php $url_host = "http://localhost/DollarCity/"; 
+session_start();
+?>
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
-    <meta charset="utf-8">
+<meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
@@ -13,25 +13,20 @@
     <title>Administrador | DollarCity</title>
     <link rel="icon" href="<?=$url_host?>assets/img/logo-titulo.ico">
     <!-- Enlaces a estilos CSS -->
-    <link rel="stylesheet" href="<?=$url_host?>assets/css/bootstrap.css">
-    <link rel="stylesheet" href="<?=$url_host?>assets/css/estilos-admin.css">
-    <link rel="stylesheet" href="<?=$url_host?>assets/css/admin/empleadosFormulario.css">
-    <link rel="stylesheet" href="<?=$url_host?>assets/css/admin/productosFormulario.css">
-    <link rel="stylesheet" href="<?=$url_host?>assets/css/admin/proveedoresFormulario.css">
-   
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
-    <link href="https://file.myfontastic.com/LhSoitGS3oZGK2yScVfSuJ/icons.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+  
+    <link rel="stylesheet" href="<?=$url_host?>assets/css/admin/sb-admin-2.min.css">
+    <link rel="stylesheet" href="<?=$url_host?>assets/css/admin/ALGUNOSCSS.css">
+         <!-- ICONS-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+      <!-- BOOTSTRAP-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     
-   
-   
 </head>
 
 <body id="page-top">
 
-    <div id="wrapper">
+
+<div id="wrapper">
         <!--EMPIEZA LA LISTA , LA BARRA LATERAL IZQUIERDA-->
         <ul class="navbar-nav bg-gradient-success sidebar sidebar-dark accordion " id="accordionSidebar">
             <!--SUPERIOR IZQUIERDO LOGO CON ADMINISTRADOR-->
@@ -162,3 +157,4 @@
                 <!-- FIN DE LA BARRA HORIZONTAL -->
 
                 <!-- CONTENIDO PAGINA-->
+    

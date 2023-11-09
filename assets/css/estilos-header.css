@@ -22,7 +22,7 @@
 }
 /*- Edicion de Logo Dollar City  -*/
 .logo {
-    margin: 25px;
+    margin: 20px;
     cursor: pointer;
 }
 /*- Edicion de Barra de Busqueda  -*/
@@ -67,18 +67,19 @@
     display: block;
     width: auto;
     padding: 10px;
-    margin-top: 25px;;
-    margin-left: 25px;
-    margin-right: 25px;
-    margin-bottom: 25px;
+    margin: 20px;
 }
 .menu-first {
     display: flex;
     width: 100%;
+    height: 50px;
     margin: 0;
     padding: 0;
     list-style: none;
     text-align: center;
+}
+.container-menu-first .menu-first [class*="fa-solid"] {
+    padding-right: 3px;
 }
 .menu_item {
     margin-left:15px;
@@ -358,6 +359,33 @@
 .link_category_options .link_text_suboption {
     color: white;
     font-family: 'Instrument Sans', sans-serif;
+}
+/*- Edicion de Carro de Compras -*/
+.container_shopping_cart {
+    display: block;
+    width: auto;
+    justify-content: flex-end;
+    border-right: 1px solid #d8d679;
+    margin-right: 5px;
+    padding-right: 5px;
+}
+.container_shopping_cart [class*="fa-solid"] {
+    cursor: pointer;
+    transition: 0.5s;
+}
+.fa-cart-plus {
+    color: #e2e01a;
+    background: rgba(0,132,87,0.5);
+    padding: 8px;
+    border-radius: 20%;
+    margin-right: 5px;
+    transition: 0.5s;
+    font-size: 1.4rem;
+    text-decoration: none;
+}
+.fa-cart-plus:hover {
+    color: yellow;
+    transition: 0.5s;
 }
 /*- Edicion de Iconos Redes Sociales -*/
 .container_icons-social {

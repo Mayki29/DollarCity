@@ -79,6 +79,8 @@ class ProductoModel implements JsonSerializable{
         $prepare->execute();
         return $prepare->fetchAll(PDO::FETCH_CLASS, ProductoModel::class);
     }
+
+    
     public static function getAllAdmin(){
         $conn = new conexion();
         $prepare = $conn->getConnection()->prepare("EXEC SP_ListarProductosAdmin");
