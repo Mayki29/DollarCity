@@ -235,7 +235,7 @@ let dataProductos = <?=json_encode($productos)?>;
                                 <table>
                                     <h6>Productos a comprar</h6>
                                     <div class="form-control productosSeleccionados"
-                                        style="max-height: 150px; overflow-y: auto;"></div>
+                                        style="height: auto; overflow-y: auto;"></div>
 
 
                                     <tr>
@@ -252,11 +252,11 @@ let dataProductos = <?=json_encode($productos)?>;
                                 </table>
 
                                 <table>
-                                    <tr>
+                                    <!--tr>
                                         <td><label for="Subtotal">Subtotal: </label></td>
                                         <td> <input type="text" class="form-control" name="subtotal" placeholder="0.0"
                                                 id="subtotal"></td>
-                                    </tr>
+                                    </tr-->
                                     <tr>
                                         <td>
                                             <hr>

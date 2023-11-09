@@ -3,13 +3,16 @@ let message = document.getElementById("message");
 
 formulario.addEventListener("submit", async function(e){
     e.preventDefault();//Evitamos que se recargue la pagina
-
+    let alerta = document.getElementById("mensajeCli");
+    alerta.setAttribute("class","ocultar");
+    
     let user = formulario.email.value;
     let pass = formulario.password.value;
     let obj = {};
     obj.usuario = user;
     obj.password = pass;
-    formulario.btnSubmitCli.setAttribute("value","cargando");
+    formulario.btnSubmitCli.setAttribute("disabled","disabled");
+    formulario.btnSubmitCli.setAttribute("value","Cargando");
     const request = await fetch('http://localhost/DOLLARCITY/acces/validarusuario',{
         method: 'POST',
         headres: {
@@ -19,12 +22,16 @@ formulario.addEventListener("submit", async function(e){
     });
 
     const resp = await request.text();
-    formulario.btnSubmitCli.setAttribute("value","Finalizado");
+    formulario.btnSubmitCli.removeAttribute("disabled");
+    formulario.btnSubmitCli.setAttribute("value","Iniciar Sesion");
     if(resp === "correct"){
-        message.innerText = "Inicio de sesion correcto";
+        alerta.innerText = "Inicio de sesion correcto";
+        alerta.setAttribute("class","alert alert-success");
         location.href="http://localhost/DOLLARCITY/home";
     }else{
-        message.innerText = "Credenciales incorrectas, vuelva a intentarlo";
+        
+        alerta.innerText = "Credenciales incorrectas, vuelva a intentarlo";
+        alerta.setAttribute("class","alert alert-danger");
     }
     console.log("La respuesta fue: "+ resp);
     
@@ -33,7 +40,7 @@ formulario.addEventListener("submit", async function(e){
 
 
 async function logout(){
-    const request = await fetch('http://localhost/DOLLARCITYMVC/acces/logout',{
+    const request = await fetch('http://localhost/DOLLARCITY/acces/logout',{
         method: 'GET',
         headres: {
             'Content-Type': 'application/json'
@@ -41,7 +48,7 @@ async function logout(){
     });
 
     const resp = await request.text();
-    location.href = "http://localhost/DOLLARCITYMVC/home"
+    location.href = "http://localhost/DOLLARCITY/home"
     
 }
 

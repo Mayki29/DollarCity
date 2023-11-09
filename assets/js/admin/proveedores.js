@@ -136,7 +136,7 @@ async function registrarProveedor() {
     proveedor.Telefono = formularioRegistrar.numero.value;
     proveedor.Email = formularioRegistrar.email.value;
 
-    const request = await fetch('http://localhost/DOLLARCITYMVC/admin/registrarproveedor', {
+    const request = await fetch('http://localhost/DollarCity/admin/registrarproveedor', {
         method: 'POST',
         headres: {
             'Content-Type': 'application/json'
@@ -164,7 +164,7 @@ async function modificarProveedor() {
     proveedor.Telefono = formularioModificar.numero.value;
     proveedor.Email = formularioModificar.email.value;
 
-    const request = await fetch('http://localhost/DOLLARCITYMVC/admin/modificarproveedor', {
+    const request = await fetch('http://localhost/DollarCity/admin/modificarproveedor', {
         method: 'POST',
         headres: {
             'Content-Type': 'application/json'
@@ -187,7 +187,7 @@ async function eliminarProveedor(){
     let proveedor = {};
     proveedor.ProveedorID = formularioEliminar.deleteCod.value;
 
-    const request = await fetch('http://localhost/DOLLARCITYMVC/admin/eliminarproveedor', {
+    const request = await fetch('http://localhost/DollarCity/admin/eliminarproveedor', {
         method: 'POST',
         headres: {
             'Content-Type': 'application/json'

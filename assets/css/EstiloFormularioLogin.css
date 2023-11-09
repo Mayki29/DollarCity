@@ -55,11 +55,16 @@ body{
     font-size: 12px;
   }
   
-  .login-box form a, .login-box div a, .login-box form button {
+#btnSubmitCli{
+  background: transparent;
+  border: none;
+}
+
+  .login-box form a, .login-box div a, .login-box form button, .login-box form input[type="submit"] {
     position: relative;
     display: inline-block;
     padding: 10px 20px;
-    color: #ffffff;
+    color: #ffffff !important;
     font-size: 16px;
     text-decoration: none;
     text-transform: uppercase;
@@ -69,8 +74,8 @@ body{
     letter-spacing: 4px
   }
   
-  .login-box a:hover, .login-box button:hover {
-    background: #12c53f;
+  .login-box a:hover, .login-box button:hover, .login-box input[type="submit"]:hover{
+    background: #12c53f !important;
     color: #fff;
     border-radius: 5px;
     box-shadow: 0 0 5px #eef106,
