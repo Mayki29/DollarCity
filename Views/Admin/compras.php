@@ -148,8 +148,11 @@ let dataProductos = <?=json_encode($productos)?>;
                                         <fieldset disabled>
                                             <div class="form-group">
                                                 <label for="disabledTextInput">Empleado: </label>
-                                                <input type="hidden" id="disabledTextInput" name="txtIdEmpleado"  class="form-control" value="<?= $_SESSION['user']->getUsuarioID() ?>">
-                                                <input type="text" id="disabledTextInput" class="form-control" value="<?=$_SESSION['user']->getNombres().$_SESSION['user']->getApellidos()?>"
+                                                <input type="hidden" id="disabledTextInput" name="txtIdEmpleado"
+                                                    class="form-control"
+                                                    value="<?= $_SESSION['user']->getUsuarioID() ?>">
+                                                <input type="text" id="disabledTextInput" class="form-control"
+                                                    value="<?=$_SESSION['user']->getNombres().$_SESSION['user']->getApellidos()?>"
                                                     placeholder="Empleado1">
                                             </div>
 
@@ -305,10 +308,15 @@ let dataProductos = <?=json_encode($productos)?>;
                 return null;
             }
             let precioTotal = 0;
-            function calcularTotal(precio, operacion){
-                switch(operacion){
-                    case "suma": precioTotal += parseFloat(precio); break;
-                    case "resta": precioTotal -= parseFloat(precio); break;
+
+            function calcularTotal(precio, operacion) {
+                switch (operacion) {
+                    case "suma":
+                        precioTotal += parseFloat(precio);
+                        break;
+                    case "resta":
+                        precioTotal -= parseFloat(precio);
+                        break;
                 }
                 document.getElementsByClassName("txtTotal").disabledTextInput.value = precioTotal.toFixed(2);
             }
@@ -344,7 +352,8 @@ let dataProductos = <?=json_encode($productos)?>;
                 }
 
                 if (event.target && event.target.classList.contains('eliminarProducto')) {
-                    let subT = event.target.closest('.producto-seleccionado').getElementsByClassName("subTotal").txtSubtotal.value;
+                    let subT = event.target.closest('.producto-seleccionado').getElementsByClassName("subTotal")
+                        .txtSubtotal.value;
                     calcularTotal(subT, "resta");
                     event.target.closest('.producto-seleccionado').remove();
                 }
@@ -589,12 +598,14 @@ let dataProductos = <?=json_encode($productos)?>;
             <!-- FIN DE MODAL DE INFORMACION - DETALLES DE COMPRA-->
 
 
+        </div>
+    </div>
+</div>
+<?php include("./Views/Layouts/footer-adminComprasyVentas.php");?>
 
-            <?php include("./Views/Layouts/footer-adminComprasyVentas.php");?>
+<script src="<?=$url_host?>assets/js/admin/graficoCompra.js"></script>
+<script src="<?=$url_host?>assets/js/admin/compras.js"></script>
 
-            <script src="<?=$url_host?>assets/js/admin/graficoCompra.js"></script>
-            <script src="<?=$url_host ?>assets/js/admin/compras.js"></script>
+</body>
 
-            </body>
-
-            </html>
+</html>

@@ -13,21 +13,27 @@ function eventosModalRegistrar(){
   
     botonAgregar.addEventListener("click", function() {
       modal.style.display = "block"; // Muestra la ventana modal al hacer clic en el botón
+      modal.style.overflow = "auto";
+      document.documentElement.style.overflow = "hidden";
     });
   
     cerrarModal.addEventListener("click", function() {
       modal.style.display = "none"; // Cierra la ventana modal al hacer clic en la "X"
+      document.documentElement.style.overflow = "auto";
     });
   
     window.addEventListener("click", function(event) {
       if (event.target === modal) {
         modal.style.display = "none"; // Cierra la ventana modal si se hace clic fuera de ella
+        document.documentElement.style.overflow = "auto";
       }
     });
 }
 function cerrarModalRegistro() {
     document.getElementById("modal").style.display = "none";
+    document.documentElement.style.overflow = "auto";
     formularioRegistrar.reset();
+    
 }
 //Modal Modificar
 function eventosModalModificar(){
@@ -83,19 +89,17 @@ function eventosModalEliminar(){
 
 function cerrarModalEliminar(){
     document.getElementById("confirmarEliminarModal").style.display = "none";
+
 }
 
 
 //FUNCIONES MODALES
-//asignar codigo de empleado para eliminar
 function setCodigoEliminar(id){
   document.getElementById("deleteCod").value = id;
 }
 
-//rellenar formulario con datos del empleado para modificar
 function rellenarFormulario(id) {
-    const celdas= document.getElementById("tr" + id).getElementsByTagName("td");
-
+    const celdas= document.getElementById("tr" + id).getElementsByTagName("td");    
     document.getElementById("txtCodigoAc").value = id;
     document.getElementById("txtNombreProductoAc").value = celdas[0].textContent;
     document.getElementById("txaDescripcionAc").value = celdas[1].textContent;
@@ -109,7 +113,44 @@ function rellenarFormulario(id) {
             optionsCat[i].removeAttribute("selected","selected");
         }
     }
+    document.getElementById("imgNameModificar").textContent = celdas[5].textContent;
+    document.getElementById("imgProductoSeleccionadoModificar").setAttribute("src","http://localhost/DollarCity/assets/img/Productos/"+celdas[5].textContent);
+    document.getElementById("contenedorImgModificar").removeAttribute("style");
 }
+
+//Previsualizar imagen
+function cargarImagenRegistrar(){
+    let botonImagen = document.getElementById("btnImagenRegistrar");
+    let imagenEscogida = document.getElementById("imgProductoSeleccionado");
+    let nombreImagen = document.getElementById("imgName");
+    let contenedorImagen = document.getElementById("contenedorImgRegistro");
+    let reader = new FileReader();
+    reader.readAsDataURL(botonImagen.files[0]);
+    reader.onload = () =>{
+        imagenEscogida.setAttribute("src",reader.result);
+        contenedorImagen.removeAttribute("style");
+
+    }
+    nombreImagen.textContent = botonImagen.files[0].name;
+}
+
+//Previsualizar imagen modificar
+function cargarImagenModificar(){
+    let botonImagen = document.getElementById("btnImagenModificar");
+    let imagenEscogida = document.getElementById("imgProductoSeleccionadoModificar");
+    let nombreImagen = document.getElementById("imgNameModificar");
+    let contenedorImagen = document.getElementById("contenedorImgModificar");
+    let reader = new FileReader();
+    reader.readAsDataURL(botonImagen.files[0]);
+    reader.onload = () =>{
+        imagenEscogida.setAttribute("src",reader.result);
+        contenedorImagen.removeAttribute("style");
+
+    }
+    nombreImagen.textContent = botonImagen.files[0].name;
+
+}
+
 
 
 //CRUD
@@ -124,6 +165,7 @@ function cargarTablaProductos(productos) {
             '<td>S/.<span>' + p.Precio + '<span></td>' +
             '<td>' + p.CantidadEnStock + '</td>' +
             '<td>' + p.Categoria.Nombre + '</td>' +
+            '<td class="d-none">' + String(p.URLImagen).replace("assets/img/Productos/","") + '</td>' +
 
             '<td><div class="btn-group">' +
             '<button class="btn btn-outline-warning mostrarFormulario4" type="button" onclick="rellenarFormulario(' + p.ProductoID + ')">' +
@@ -142,20 +184,14 @@ function cargarTablaProductos(productos) {
 async function registrarProducto() {
     const formularioRegistrar = document.getElementById("frmResgistrarProducto");
 
-    let producto = {};
-    producto.Nombre = formularioRegistrar.nombre.value;
-    producto.Descripcion = formularioRegistrar.descripcion.value;
-    producto.Precio = formularioRegistrar.precio.value;
-    producto.CantidadEnStock = formularioRegistrar.stock.value;
-    producto.CategoriaID = formularioRegistrar.categoria.value;
-
+    const formData = new FormData(formularioRegistrar);
 
     const request = await fetch('http://localhost/DollarCity/admin/registrarproducto', {
         method: 'POST',
         headres: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(producto)
+        body: formData
     });
 
     const resp = await request.json();
@@ -173,21 +209,22 @@ async function registrarProducto() {
 
 
 async function modificarProducto() {
-    const formularioModificar = document.getElementById("frmModificarProducto")
-    let producto = {};
+    const formularioModificar = document.getElementById("frmModificarProducto");
+    const formData = new FormData(formularioModificar);
+    /*let producto = {};
     producto.ProductoID = formularioModificar.codigo.value;
     producto.Nombre = formularioModificar.nombre.value;
     producto.Descripcion = formularioModificar.descripcion.value;
     producto.Precio = formularioModificar.precio.value;
     producto.CantidadEnStock = formularioModificar.stock.value;
-    producto.CategoriaID = formularioModificar.categoria.value;
+    producto.CategoriaID = formularioModificar.categoria.value;*/
 
     const request = await fetch('http://localhost/DollarCity/admin/modificarproducto', {
         method: 'POST',
         headres: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(producto)
+        body: formData
     });
 
     const resp = await request.json();
@@ -227,3 +264,4 @@ async function eliminarProducto(){
         alert("Error");
     }
 }
+

@@ -6,33 +6,53 @@
         echo $producto['Nombre'] . "<br>";
     }*/
 ?>
-<div class="container mt-5">
+<div class="contenedor-productos">
 
     <?php 
 $contador = 1;
-foreach($productos as $producto){
-echo ($contador == 1)? '<div class="row mb-4">' :'';
+foreach($productos as $producto):
     ?>
 
-    <div class="col-md-2">
-        <a href="producto.html" class="text-dark">
-            <div class="card">
-                <img src="<?php echo $url_host ?>assets/img/exprimidor-limon.png" class="card-img-top" alt="">
-                <div class="card-body">
-                    <p><?=$producto->getNombre()?></p>
-                    <p class="font-weight-light">S/.<?=$producto->getPrecio()?></p>
-                    <button class="btn btn-primary w-100"><i class="fa-solid fa-cart-shopping"></i> Agregar</button>
-                </div>
+    <div class="card card-producto mb-4 mx-2">
+        <?php if($producto->getDescuento() != null): ?>
+        <div class="position-absolute top-50 start-50" style="right: 0">
+            <h5 class="p-1 card-descuento">-<?=(int)$producto->getDescuento()?>%</h5>
+        </div>
+        <?php endif ?>
+        <div class="container-image-product-card">
+            <img src="<?php echo $url_host . $producto->getURLImagen()?>"
+                class="card-img-top image-product-card <?=($producto->getCantidadEnStock() <= 0)?'image-agotado':''?>"
+                alt="...">
+            <?=($producto->getCantidadEnStock() <= 0)?'<span class="text-agotado">AGOTADO</span>':''?>
+        </div>
+
+        <div class="contenido-producto-card">
+            <div class="titulo">
+                <h5 class="card-title nombre-producto-card"><?=$producto->getNombre()?></h5>
             </div>
-        </a>
+
+            <?php if($producto->getDescuento() != null):?>
+            <div class="precios">
+                <span class="text-center precio-tachado"><s>S/. <?=$producto->getPrecio()?></s></span><br>
+                <span class="text-center precio-descuento">S/.
+                    <?=round(($producto->getPrecio())-(($producto->getDescuento()/100)*$producto->getPrecio()),2)?></span>
+            </div>
+            <?php else:?>
+            <div class="precios">
+                <span class="text-center"><s></s></span><br>
+                <span class="text-center">S/. <?=$producto->getPrecio()?></span>
+            </div>
+            <?php endif?>
+            <div class="boton">
+                <button class="form-control btn-add-cart <?=($producto->getCantidadEnStock() <= 0)?'btn-agotado':''?>">
+                    <i class="fa-solid fa-cart-shopping btn-icon-cart"></i>
+                    <span>AGREGAR</span>
+                </button>
+            </div>
+
+        </div>
     </div>
-    <?php 
-
-echo ($contador == 6)? '</div>' :'';
-
-$contador = ($contador == 6)?1:$contador+1;
-} 
-?>
+    <?php endforeach;?>
 
 
 

@@ -29,6 +29,15 @@ class AdminController
 
         echo $grafico;
     }
+    private function guardarImagen(){
+        $imgPath = 'assets/img/Productos/';
+        $tempPath = $_FILES["imagen"]["tmp_name"];
+        $nombreImagen = basename($_FILES["imagen"]["name"]);
+        $fileType = pathinfo($nombreImagen, PATHINFO_EXTENSION);
+        $nuevoNombre = sprintf("%s_%s.%s",$imgPath . str_replace(" ","_",strtolower($_POST["nombre"])),  date("Ymd_his"),$fileType);
+        move_uploaded_file($tempPath, "./".$nuevoNombre);
+        return $nuevoNombre;
+    }
 
     //COMPRAS
     public function compras()
@@ -48,43 +57,16 @@ class AdminController
 
     public function pruebas()
     {
+        $nombreProd = $_POST["nombre"];
+        $dirImg = 'assets/img/';
+        $ubicacionTemporal = $_FILES["imagen"]["tmp_name"];
+        $nombreImagen = basename($_FILES["imagen"]["name"]);
+        $fileType = pathinfo($nombreImagen, PATHINFO_EXTENSION);
+        $nuevoNombre = sprintf("%s_%s.%s",$dirImg . str_replace(" ","_",strtolower($nombreProd)),  date("Ymd_his"),$fileType);
+        move_uploaded_file($ubicacionTemporal, "./".$nuevoNombre);
+        echo "Termino todo";
 
-        //$p = array("Stock" => ProductoModel::getstockPorCategoria(), "Productos" => ProductoModel::getAllAdmin());
-
-        
-        /*$conn = new conexion();
-        $r = $conn->getConnection()->prepare("SELECT * FROM DetalleCompra dc inner join Compra c  on dc.CompraID = c.CompraID;");
-        $r->execute();
-        $resultado = $r->fetchAll(PDO::FETCH_ASSOC);
-        print_r($resultado);
-        $listadetalle = [];
-        $listaComp = [];
-        $idControl = null;
-        foreach ($resultado as $compra) {
-            if ($idControl != $compra["CompraID"]) {
-                $c = new CompraModel();
-                $idControl = $compra["CompraID"];
-                $c->setCompraID($compra["CompraID"]);
-                $c->setUsuarioID($compra["UsuarioID"]);
-                $c->setProveedorID($compra["FechaCompra"]);
-                $c->setTotalCompra($compra["TotalCompra"]);
-                foreach ($resultado as $dtcompra) {
-                    if ($idControl == $dtcompra["CompraID"]) {
-                        $dc = new DetalleCompraModel();
-                        $dc->setDetalleCompraID($dtcompra["DetalleCompraID"]);
-                        $dc->setProductoID($dtcompra["ProductoID"]);
-                        $dc->setCantidad($dtcompra["Cantidad"]);
-                        array_push($listadetalle, $dc);
-                    }
-                }
-                $c->setDetalleCompra($listadetalle);
-                array_push($listaComp, $c);
-                $listadetalle = [];
-            }
-        }
-
-
-        var_dump(json_encode($listaComp));*/
+    
     }
 
     #region Empleado
@@ -184,14 +166,17 @@ class AdminController
     #region Productos
     public function registrarProducto()
     {
-        $data = json_decode(file_get_contents('php://input'));
+        
+        //Creando Objeto Producto
         $producto = new ProductoModel();
-        $producto->setNombre($data->Nombre);
-        $producto->setDescripcion($data->Descripcion);
-        $producto->setPrecio($data->Precio);
-        $producto->setCantidadEnStock($data->CantidadEnStock);
-        $producto->setCategoriaID($data->CategoriaID);
+        $producto->setNombre($_POST["nombre"]);
+        $producto->setDescripcion($_POST["descripcion"]);
+        $producto->setPrecio($_POST["precio"]);
+        $producto->setCantidadEnStock($_POST["stock"]);
+        $producto->setCategoriaID($_POST["categoria"]);
+        $producto->setURLImagen($this->guardarImagen());
 
+        //Guardando en base de datos
         $resultado =  $producto->save();
 
         if($resultado === "correct"){
@@ -207,15 +192,17 @@ class AdminController
 
     public function modificarProducto()
     {
-        $data = json_decode(file_get_contents('php://input'));
         $producto = new ProductoModel();
-        $producto->setProductoID($data->ProductoID);
-        $producto->setNombre($data->Nombre);
-        $producto->setDescripcion($data->Descripcion);
-        $producto->setPrecio($data->Precio);
-        $producto->setCantidadEnStock($data->CantidadEnStock);
-        $producto->setCategoriaID($data->CategoriaID);
+        $producto->setProductoID($_POST["codigo"]);
+        $producto->setNombre($_POST["nombre"]);
+        $producto->setDescripcion($_POST["descripcion"]);
+        $producto->setPrecio($_POST["precio"]);
+        $producto->setCantidadEnStock($_POST["stock"]);
+        $producto->setCategoriaID($_POST["categoria"]);
 
+        if(isset($_FILES["imagen"])){
+            $producto->setURLImagen($this->guardarImagen());
+        };
         $resultado = $producto->edit();
         if($resultado === "correct"){
             $productos = ProductoModel::getAllAdmin();

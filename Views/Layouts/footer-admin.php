@@ -4,7 +4,7 @@
               <!-- End of Main Content -->
 
               <!-- Footer -->
-              
+
               <!-- End of Footer -->
 
               </div>
@@ -38,16 +38,17 @@
                       </div>
                   </div>
               </div>
-              
+
               <!-- JQuery-->
               <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
               <script src="<?=$url_host?>assets/js/jquery/jquery.dataTables.min.js"></script>
               <script src="<?=$url_host?>assets/js/jquery/dataTables.bootstrap4.min.js"></script>
               <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-              
+              <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+                  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
               <script src="<?=$url_host?>assets/js/bootstrap.bundle.min.js"></script>
 
               <!--CHARTS-->
               <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
               <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-             

@@ -45,7 +45,7 @@ include("./Views/Layouts/header-admin.php");
 
                         <br>
                         <!-- Agrega aquí los campos del formulario para agregar datos -->
-                        <table>
+                        <table class="w-100">
                             <!--tr>
                                 <td><label for="codigo">Codigo: </label></td>
                                 <td><input type="text" class="form-control" name="codigo" id="codigo">
@@ -55,30 +55,30 @@ include("./Views/Layouts/header-admin.php");
 
                             <tr>
                                 <td><label for="nombre">Nombre: </label></td>
-                                <td> <input type="text" class="form-control" placeholder="Nombre del producto..."
+                                <td> <input type="text" class="form-control mb-2" placeholder="Nombre del producto..."
                                         id="txtNombre" name="nombre" required>
                                 </td>
                             </tr>
                             <tr>
                                 <td> <label for="descripcion">Descripcion:</label></td>
-                                <td><textarea class="form-control" rows="5" id="txaDescripcion"
+                                <td><textarea class="form-control mb-2" rows="5" id="txaDescripcion"
                                         placeholder="Descripcion..." name="descripcion" required></textarea></td>
                             </tr>
                             <tr>
                                 <td><label for="precio">Precio: </label></td>
-                                <td><input type="number" min="0.00" step="0.01" class="form-control" placeholder="0.00"
-                                        name="precio" id="txtPrecio" required></td>
+                                <td><input type="number" min="0.00" step="0.01" class="form-control mb-2"
+                                        placeholder="0.00" name="precio" id="txtPrecio" required></td>
                             </tr>
                             <tr>
                                 <td> <label for="stock">Cantidad en Stock: </label></td>
-                                <td><input type="number" class="form-control" name="stock" placeholder="0" id="txtStock"
-                                        min="0" required>
+                                <td><input type="number" class="form-control mb-2" name="stock" placeholder="0"
+                                        id="txtStock" min="0" required>
                                 </td>
                             </tr>
-                            
+
                             <tr>
                                 <td><label for="categoria">Categoria: </label></td>
-                                <td><select class="form-control" name="categoria" id="slCategoria">
+                                <td><select class="form-control mb-2" name="categoria" id="slCategoria">
                                         <?php foreach($categorias as $categoria):?>
                                         <option value="<?= $categoria->getCategoriaID()?>"><?= $categoria->getNombre()?>
                                         </option>
@@ -86,25 +86,25 @@ include("./Views/Layouts/header-admin.php");
                                     </select>
                                     <!--input type="text" class="form-control" name="categoria" placeholder="Categoria..." id="categoria"></td-->
                             </tr>
-                     
-
-                    
-                            
-
+                            <tr>
+                                <td><label for="btnImagenRegistrar">Imagen: </label></td>
+                                <td>
+                                    <figure class="image-container w-100 text-center" id="contenedorImgRegistro" style="display: none">
+                                        <img id="imgProductoSeleccionado" style="max-height:200px" alt="">
+                                        <figcaption id="imgName"></figcaption>
+                                    </figure>
+                                    <div class="btnSubirImagen">
+                                        <input type="file" onchange="cargarImagenRegistrar()" class="custom-file-input" id="btnImagenRegistrar" name="imagen"
+                                            accept="image/*" aria-describedby="inputGroupFileAddon01">
+                                        <label class="" for="btnImagenRegistrar"><i
+                                                class="fa-solid fa-arrow-up-from-bracket"></i> Subir imagen</label>
+                                    </div>
+                                </td>
+                            </tr>
                         </table>
-
                         <hr>
-                        <!--IMAGEN-->
-                        <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                              <span class="input-group-text" id="inputGroupFileAddon01"></span>
-                            </div>
-                            <div class="custom-file">
-                              <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
-                             <label class="custom-file-label" for="inputGroupFile01">Subir imagen</label>
-                         </div>
-                    </div>
-              
+
+
                         <button type="button" onclick="registrarProducto()" class="btn btn-success"
                             style="display: block;width: 100%;text-align: center;">
                             Guardar
@@ -128,7 +128,7 @@ include("./Views/Layouts/header-admin.php");
 
                         <br>
 
-                        <table>
+                        <table class="w-100">
                             <div>
                                 <input type="hidden" class="form-control" name="codigo" id="txtCodigoAc">
 
@@ -167,17 +167,23 @@ include("./Views/Layouts/header-admin.php");
                                         <?php endforeach?>
                                     </select></td>
                             </tr>
-                        </table>    
-                        <hr>
-                        <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                              <span class="input-group-text" id="inputGroupFileAddon01"></span>
-                            </div>
-                            <div class="custom-file">
-                              <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
-                             <label class="custom-file-label" for="inputGroupFile01">Subir imagen</label>
-                         </div>
-                    </div>
+                            <tr>
+                                <td><label for="btnImagenRegistrar">Imagen: </label></td>
+                                <td>
+                                    <figure class="image-container w-100 text-center" id="contenedorImgModificar" style="display: none">
+                                        <img id="imgProductoSeleccionadoModificar" style="max-height:200px" alt="">
+                                        <figcaption id="imgNameModificar"></figcaption>
+                                    </figure>
+                                    <div class="btnSubirImagen">
+                                        <input type="file" onchange="cargarImagenModificar()" class="custom-file-input" id="btnImagenModificar" name="imagen"
+                                            accept="image/*" aria-describedby="inputGroupFileAddon01">
+                                        <label class="" for="btnImagenModificar"><i
+                                                class="fa-solid fa-arrow-up-from-bracket"></i> Subir imagen</label>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                        
 
                         <hr>
                         <!-- Otros campos del formulario -->
@@ -218,7 +224,7 @@ include("./Views/Layouts/header-admin.php");
                             </tr>
                         </thead>
                         <tbody class="table-hover">
-                            <?php foreach($productos as $producto){ ?>
+                            <?php foreach($productos as $producto): ?>
 
                             <tr id="tr<?=$producto->getProductoID()?>">
                                 <th><?=$producto->getProductoID()?></th>
@@ -227,7 +233,7 @@ include("./Views/Layouts/header-admin.php");
                                 <td>S/.<span><?=$producto->getPrecio()?><span></td>
                                 <td><?=$producto->getCantidadEnStock()?></td>
                                 <td><?=$producto->getCategoria()->getNombre()?></td>
-
+                                <td class="d-none"><?=($producto->getURLImagen() != null)? str_replace("assets/img/Productos/","",$producto->getURLImagen()):null?></td>
                                 <td>
                                     <div class="btn-group">
                                         <button class="btn btn-outline-warning mostrarFormulario4" type="button"
@@ -239,14 +245,14 @@ include("./Views/Layouts/header-admin.php");
                                     </div>
                                 </td>
                             </tr>
-                            <?php } ?>
+                            <?php endforeach ?>
 
                         </tbody>
                     </table>
                 </div>
-            
+
             </div>
-            
+
         </div>
 
     </div>
@@ -256,7 +262,8 @@ include("./Views/Layouts/header-admin.php");
             <form id="frmEliminarProducto">
                 <input type="number" id="deleteCod" name="deleteCod" style="display: none;">
                 <p>¿Estás seguro de que deseas eliminar este elemento?</p>
-                <button type="button" onclick="eliminarProducto()" id="eliminarConfirmado" class="btn btn-danger">Eliminar</button>
+                <button type="button" onclick="eliminarProducto()" id="eliminarConfirmado"
+                    class="btn btn-danger">Eliminar</button>
                 <br>
 
             </form>
@@ -272,12 +279,9 @@ include("./Views/Layouts/header-admin.php");
 
 <!-- Graficos -->
 <script>
-    let datos = <?=$grafico?>;
+let datos = <?=$grafico?>;
 </script>
-<script src="<?=$url_host?>assets/js/admin/graficoProducto.js">
-
-
-</script>
+<script src="<?=$url_host?>assets/js/admin/graficoProducto.js"></script>
 
 </body>
 

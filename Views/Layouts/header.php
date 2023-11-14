@@ -36,6 +36,7 @@ if(!isset($_SESSION['user'])){
     <link rel="stylesheet" href="<?= $url_host ?>assets/css/estilos-general.css">
     <link rel="stylesheet" href="<?= $url_host ?>assets/css/estilos-header.css">
     <link rel="stylesheet" href="<?= $url_host ?>assets/css/estilos-registro.css">
+    <link rel="stylesheet" href="<?= $url_host ?>assets/css/estilos-productos.css">
     <link rel="stylesheet" href="<?= $url_host ?>assets/css/slider.css">
     <link rel="stylesheet" href="<?= $url_host ?>assets/css/content.css">
     <link rel="stylesheet" href="<?= $url_host ?>assets/css/footer.css">

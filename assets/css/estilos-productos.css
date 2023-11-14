@@ -1,17 +1,95 @@
-.precio{
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: #008457;
-    margin-right: 3rem;
+
+.contenedor-productos{
+    display: flex;
+    flex-flow: wrap;
+    padding: 2rem 10rem;
+    justify-content: center;
 }
-.titulo-precio{
-    font-size: 2rem;
+.card-descuento{
+    background-color: #008457;
+    color: #fefe9a;
+    font-weight: 400;
+    font-style: italic;
 }
-#txtCantidad{
-    width: 4rem;
+
+.card-producto{
+    border-radius: 0.4rem;
+    height: 32rem;
+    width: 17rem;
+    
+}
+.container-image-product-card{
+    height: 18rem;
+}
+.image-product-card{
+    height: 18rem;
+    object-fit: cover;
+}
+.image-agotado{
+    opacity: 0.5;
+}
+.text-agotado{
+    position: absolute;
+    left: 50%;
+    top: 25%;
+    transform: translate(-50%, -50%);
+    background-color: #008457;
+    color: #fefe9a;
+    padding: 1px 5px;
+    border-radius: 3px;
+}
+.btn-agotado{
+    pointer-events: none;
+    background-color: #67c5a6 !important;
+}
+.nombre-producto-card{
+    height: 3rem;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    font-weight: 400;
+    font-size: 1rem;
+    margin-bottom: 0 !important;
+}
+.contenido-producto-card{
+    height: 15rem;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.precios{
+    margin: 1rem 0;
+    font-weight: 370;
 
 }
-#lblCantidad{
-    font-size: 1.1rem;
+
+.precio-tachado{
+    font-size: 0.8rem;
+    font-weight: 300;
+}
+.precio-descuento{
     font-weight: 500;
+    color: #006443;
+}
+.btn-add-cart{
+    background-color: #008457;
+    color: #fefe9a;
+    border-radius: 1rem;
+    height: 2.5rem;
+    font-weight: 350;
+    font-size: 13px;
+}
+.btn-icon-cart{
+    font-size: 15px;
+}
+.btn-add-cart:hover{
+    background-color: #07a771;
+    color: #fefe9a !important;
+    
+}
+.btn-add-cart:focus{
+    color: #07a771;
+    
 }

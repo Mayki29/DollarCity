@@ -7,6 +7,8 @@ class ProductoModel implements JsonSerializable{
     private $CantidadEnStock;
     private $CategoriaID;
     private $Categoria;
+    private $URLImagen;
+    private $Descuento;
     private $Estado;
 
     //Getters and Setters
@@ -52,6 +54,25 @@ class ProductoModel implements JsonSerializable{
     public function setCategoria($Categoria){
         $this->Categoria = $Categoria;
     }
+    
+    public function getURLImagen()
+    {
+        return $this->URLImagen;
+    }
+
+    public function setURLImagen($URLImagen)
+    {
+        $this->URLImagen = $URLImagen;
+    }
+    public function getDescuento()
+    {
+        return $this->Descuento;
+    }
+
+    public function setDescuento($Descuento)
+    {
+        $this->Descuento = $Descuento;
+    }
     public function getEstado(){
         return $this->Estado;
     }
@@ -69,13 +90,15 @@ class ProductoModel implements JsonSerializable{
             'CantidadEnStock' => $this->CantidadEnStock,
             'CategoriaID' => $this->CategoriaID,
             'Categoria' => $this->Categoria,
+            'URLImagen' => $this->URLImagen,
+            'Descuento' => $this->Descuento,
             'Estado' => $this->Estado
         ];
     }
 
     public static function getAll(){
         $conn = new conexion();
-        $prepare = $conn->getConnection()->prepare("SELECT top(12)* FROM Producto");
+        $prepare = $conn->getConnection()->prepare("SELECT * FROM Producto WHERE Estado = 1 ORDER BY ProductoID DESC");
         $prepare->execute();
         return $prepare->fetchAll(PDO::FETCH_CLASS, ProductoModel::class);
     }
@@ -95,6 +118,7 @@ class ProductoModel implements JsonSerializable{
             $producto->setDescripcion($r["Descripcion"]); 
             $producto->setPrecio($r["Precio"]);
             $producto->setCantidadEnStock($r["CantidadEnStock"]);
+            $producto->setURLImagen($r["URLImagen"]);
 
             $categoria->setCategoriaID($r["CategoriaID"]);
             $categoria->setNombre($r["Categoria"]);
@@ -108,7 +132,7 @@ class ProductoModel implements JsonSerializable{
 
     public function save(){
         $conn = new conexion();
-        $query = "EXEC SP_CrearProducto :nombre, :descripcion, :precio, :stock, :catId";
+        $query = "EXEC SP_CrearProducto :nombre, :descripcion, :precio, :stock, :catId, :urlImg";
         try{
             $result = $conn->getConnection()->prepare($query);
             $result->bindValue(":nombre", $this->Nombre);
@@ -116,6 +140,7 @@ class ProductoModel implements JsonSerializable{
             $result->bindValue(":precio", $this->Precio);
             $result->bindValue(":stock", $this->CantidadEnStock);
             $result->bindValue(":catId", $this->CategoriaID);
+            $result->bindValue(":urlImg", $this->URLImagen);
             
             $result->execute();
 
@@ -128,7 +153,7 @@ class ProductoModel implements JsonSerializable{
 
     public function edit(){
         $conn = new conexion();
-        $query = "EXEC SP_ActualizarProducto :id, :nombre, :descripcion, :precio, :stock, :catId";
+        $query = "EXEC SP_ActualizarProducto :id, :nombre, :descripcion, :precio, :stock, :catId, :urlImg";
         try{
             $result = $conn->getConnection()->prepare($query);
             $result->bindValue(":id", $this->ProductoID);
@@ -137,6 +162,7 @@ class ProductoModel implements JsonSerializable{
             $result->bindValue(":precio", $this->Precio);
             $result->bindValue(":stock", $this->CantidadEnStock);
             $result->bindValue(":catId", $this->CategoriaID);
+            $result->bindValue(":urlImg", $this->URLImagen);
             
             $result->execute();
 
@@ -173,7 +199,6 @@ class ProductoModel implements JsonSerializable{
         
 
     }
-
 }
 
 
