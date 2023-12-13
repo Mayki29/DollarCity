@@ -25,13 +25,28 @@ class AccesController extends conexion
         $resultado = $cliente->saveCliente();
         echo $resultado;
     }
-    public function validarUsuario()
+    public function validarCliente()
     {
 
         $data = json_decode(file_get_contents('php://input'));
         $email = $data->usuario;
         $password = $data->password;
-        $user = UsuarioModel::loginEmpleado($email, $password);
+        $user = UsuarioModel::loginCliente($email, $password);
+        if ($user != null) {
+            session_start();
+            $_SESSION['user'] = $user;
+            echo "correct";
+        } else {
+            echo "fail";
+        }
+    }
+    public function validarEmpleado()
+    {
+
+        $data = json_decode(file_get_contents('php://input'));
+        $user = $data->usuario;
+        $password = $data->password;
+        $user = UsuarioModel::loginEmpleado($user, $password);
         if ($user != null) {
             session_start();
             $_SESSION['user'] = $user;

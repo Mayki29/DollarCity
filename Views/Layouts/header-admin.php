@@ -33,56 +33,56 @@
 
     <div id="wrapper">
         <!--EMPIEZA LA LISTA , LA BARRA LATERAL IZQUIERDA-->
-        <ul class="navbar-nav bg-gradient-success sidebar sidebar-dark accordion " id="accordionSidebar">
+        <ul class="navbar-nav sidebar sidebar-dark accordion " id="accordionSidebar">
             <!--SUPERIOR IZQUIERDO LOGO CON ADMINISTRADOR-->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?=$url_host?>home">
+            <a class="sidebar-brand d-flex align-items-center" id="logoAdmin" href="<?=$url_host?>admin">
                 <div class="sidebar-brand-icon ">
                     <i class="fas fa-regular fa-user-circle" style="color: #fdf903;"></i>
                     <!--"fas" de FONT AWESOME....-->
                     <!-- <i class="fa-solid fa-user" style="color: #ffffff;"></i></i>-->
                 </div>
-                <div class="sidebar-brand-text mx-3">Administrador</div>
+                <div class="sidebar-brand-text mx-2">Administrador</div>
             </a>
 
             <!-- LINEA DE DIVISION -->
             <hr class="sidebar-divider my-0">
 
             <!-- EMPIEZA LA BARRA DASHBOARD -->
-            <li class="<?php echo ($paginaActual == 'index.php')? 'active menu_item': 'nav-link menu_item';?>">
-                <a class="nav-link menu_link <?php echo ($paginaActual == 'index.php')? 'menu_link-select': '';?>" href="<?=$url_host?>admin">
+            <li class="<?php echo ($paginaActual == 'index.php')? 'menu_link active menu_item menu_link-select': 'menu_link';?>">
+                <a class="nav-link <?php echo ($paginaActual == 'index.php')? 'menu_link-select': '';?>" href="<?=$url_host?>admin">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
-            <li class="<?php echo ($paginaActual == 'empleados.php')? 'active menu_item': 'nav-link menu_item';?>">
-                <a class="nav-link menu_link <?php echo ($paginaActual == 'empleados.php')? 'menu_link-select': '';?>" href="<?=$url_host?>admin/empleados">
+            <li class="<?php echo ($paginaActual == 'empleados.php')? 'menu_link active menu_item menu_link-select': 'menu_link';?>">
+                <a class="nav-link <?php echo ($paginaActual == 'empleados.php')? 'menu_link-select': '';?>" href="<?=$url_host?>admin/empleados">
                     <i class="fas fa-fw fa-user-tie"></i>
                     <span>Empleados</span></a>
             </li>
-            <li class="<?php echo ($paginaActual == 'proveedores.php')? 'active menu_item': 'nav-link menu_item';?>">
-                <a class="nav-link menu_link <?php echo ($paginaActual == 'proveedores.php')? 'menu_link-select': '';?>" href="<?=$url_host?>admin/proveedores">
+            <li class="<?php echo ($paginaActual == 'proveedores.php')? 'menu_link active menu_item menu_link-select': 'menu_link';?>">
+                <a class="nav-link <?php echo ($paginaActual == 'proveedores.php')? 'menu_link-select': '';?>" href="<?=$url_host?>admin/proveedores">
                     <i class="fas fa-fw fa-users"></i>
                     <span>Proveedores</span></a>
             </li>
-            <li class="<?php echo ($paginaActual == 'productos.php')? 'active menu_item': 'nav-link menu_item';?>">
-                <a class="nav-link menu_link <?php echo ($paginaActual == 'productos.php')? 'menu_link-select': '';?>" href="<?=$url_host?>admin/productos">
+            <li class="<?php echo ($paginaActual == 'productos.php')? 'menu_link active menu_item menu_link-select': 'menu_link';?>">
+                <a class="nav-link <?php echo ($paginaActual == 'productos.php')? '': '';?>" href="<?=$url_host?>admin/productos">
                     <i class="fas fa-fw fa-shopping-basket"></i>
                     <span>Productos</span></a>
             </li>
-            <li class="<?php echo ($paginaActual == 'ventas.php')? 'active menu_item': 'nav-link menu_item';?>">
-                <a class="nav-link menu_link <?php echo ($paginaActual == 'ventas.php')? 'menu_link-select': '';?>" href="<?=$url_host?>admin/ventas">
+            <li class="<?php echo ($paginaActual == 'ventas.php')? 'menu_link active menu_item menu_link-select': 'menu_link';?>">
+                <a class="nav-link <?php echo ($paginaActual == 'ventas.php')? 'menu_link-select': '';?>" href="<?=$url_host?>admin/ventas">
                     <i class="fas fa-fw fa-shopping-basket"></i>
                     <span>Ventas</span></a>
             </li>
-            <li class="<?php echo ($paginaActual == 'compras.php')? 'active menu_item': 'nav-link menu_item';?>">
-                <a class="nav-link menu_link <?php echo ($paginaActual == 'compras.php')? 'menu_link-select': '';?>" href="<?=$url_host?>admin/compras">
+            <li class="<?php echo ($paginaActual == 'compras.php')? 'menu_link active menu_item menu_link-select': 'menu_link';?>">
+                <a class="nav-link <?php echo ($paginaActual == 'compras.php')? 'menu_link-select': '';?>" href="<?=$url_host?>admin/compras">
                     <i class="fas fa-fw fa-shopping-basket"></i>
                     <span>Compras</span></a>
             </li>
 
             <hr class="sidebar-divider my-4">
 
-            <li class="nav-link menu_item">
-                <a class="nav-link menu_link " href="<?=$url_host?>home">
+            <li class="menu_link">
+                <a class="" href="<?=$url_host?>home">
                     <i class="fas fa-fw fa-reply-all"></i>
                     <span>Salir</span></a>
             </li>
@@ -96,13 +96,13 @@
             <div id="content">
 
 
-                <nav class="navbar navbar-expand navbar-light bg-success topbar mb-4 static-top shadow">
+                <nav class="navbar navbar-expand navbar-light topbar mb-4 static-top shadow">
 
 
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                         <i class="fa fa-bars"></i>
                     </button>
-                    <div class="topbar-divider d-none d-sm-block"></div>
+                    
                     <!-- BARRA DE BUSQUEDA-->
                     <form
                         class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">

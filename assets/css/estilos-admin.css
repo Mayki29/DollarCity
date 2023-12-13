@@ -11,7 +11,13 @@
     background: #119d6e;
     font-family: 'Calistoga', cursive;
     transition: 0.5s;
-    box-shadow: 0 0 5px #088b15;
+
+}
+ul, nav{
+    background: #119d6e;
+}
+.menu_link a{
+    color: white;
 }
 .menu_link:hover {
     background: yellow;
@@ -21,8 +27,14 @@
     border-color: darkgreen;
     cursor: pointer;
 }
+.menu_link a:hover{
+    color: rgba(0,132,87,1);
+}
 .menu_link-select {
     background: yellow;
+    color: rgba(0,132,87,1);
+}
+.menu_link-select a{
     color: rgba(0,132,87,1);
 }
 .menu_item {
@@ -33,4 +45,9 @@
 }
 .ocultar{
     display: none;
+}
+ul #logoAdmin{
+    border-style: solid;
+    border-color: aliceblue;
+    border: 0 5px 0 0;
 }

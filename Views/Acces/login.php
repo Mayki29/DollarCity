@@ -54,7 +54,7 @@
                     <label>Ingresa tu contraseña</label>
                 </div>
                 <div class="alert ocultar" id="mensajeCli" role="alert">
-                        A simple primary alert—check it out!
+                    A simple primary alert—check it out!
                 </div>
                 <center>
                     <input type="submit" name="btnSubmitCli" id="btnSubmitCli" value="Iniciar Sesion"><br>
@@ -67,24 +67,21 @@
                         SALIR
                         <span></span>
                     </a>
-                    
+
                 </center>
 
             </form>
             <form id="frmEmpleado" class="ocultar">
                 <div class="user-box">
-                    <input type="text" name="EmpleadoUsuario" id="EmpleadoUsuario" required="">
-                    <label>Ingresa tu usuario</label>
+                    <input type="text" name="usuario" id="EmpleadoUsuario" required="">
+                    <label>Ingresa tu Email o DNI</label>
                 </div>
                 <div class="user-box">
-                    <input type="password" name="EmpleadoPassword" id="EmpleadoContraseña" required="">
+                    <input type="password" name="password" id="EmpleadoContraseña" required="">
                     <label>Ingresa tu contraseña</label>
                 </div>
                 <center>
-                    <button type="submit" id="btnSubmit">
-                        INICIAR SESION
-                        <span></span>
-                    </button>
+                    <input type="submit" name="btnSubmitCli" id="btnSubmitCli" value="Iniciar Sesion"><br>
                     <a onclick="mostrarOpciones()">
                         REGRESAR
                         <span></span>

@@ -96,6 +96,14 @@ class ProductoModel implements JsonSerializable{
         ];
     }
 
+    public static function getById($id){
+        $conn = new conexion();
+        $prepare = $conn->getConnection()->prepare("SELECT * FROM Producto WHERE ProductoID = :id and Estado = 1");
+        $prepare->bindValue(":id",$id);
+        $prepare->execute();
+        return $prepare->fetch(PDO::FETCH_CLASS, ProductoModel::class);
+    }
+
     public static function getAll(){
         $conn = new conexion();
         $prepare = $conn->getConnection()->prepare("SELECT * FROM Producto WHERE Estado = 1 ORDER BY ProductoID DESC");

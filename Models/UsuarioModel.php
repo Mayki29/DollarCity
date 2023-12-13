@@ -193,7 +193,27 @@ class UsuarioModel implements JsonSerializable
         }
     }
 
-    public static function loginEmpleado($email, $password)
+    public static function loginEmpleado($user, $password)
+    {
+        $conn = new conexion();
+        $query = "exec SP_ValidarLoginEmpleado :param1, :param2";
+        try {
+            $result = $conn->getConnection()->prepare($query);
+            $result->bindValue(":param1", $user);
+            $result->bindValue(":param2", $password);
+            $result->execute();
+            $user = $result->fetchAll(PDO::FETCH_CLASS, UsuarioModel::class);
+
+            if(count($user) > 0){
+                return $user[0];
+            }else{
+                return null;
+            }
+        } catch (PDOException $e) {
+            return $e;
+        }
+    }
+    public static function loginCliente($email, $password)
     {
         $conn = new conexion();
         $query = "exec SP_ValidarLoginCliente :param1, :param2";

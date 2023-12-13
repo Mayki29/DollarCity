@@ -36,6 +36,7 @@ class AdminController
         $fileType = pathinfo($nombreImagen, PATHINFO_EXTENSION);
         $nuevoNombre = sprintf("%s_%s.%s",$imgPath . str_replace(" ","_",strtolower($_POST["nombre"])),  date("Ymd_his"),$fileType);
         move_uploaded_file($tempPath, "./".$nuevoNombre);
+        $_FILES["imagen"]["name"] = null;
         return $nuevoNombre;
     }
 
@@ -200,7 +201,7 @@ class AdminController
         $producto->setCantidadEnStock($_POST["stock"]);
         $producto->setCategoriaID($_POST["categoria"]);
 
-        if(isset($_FILES["imagen"])){
+        if(isset($_FILES["imagen"]["name"])){
             $producto->setURLImagen($this->guardarImagen());
         };
         $resultado = $producto->edit();

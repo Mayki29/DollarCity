@@ -30,6 +30,11 @@ class HomeController extends conexion{
         view("home.productos", ["productos" =>$p]);
     }
 
+    public function producto($id){
+        $producto = ProductoModel::getById((int)$id);
+        view("home.producto", ["producto"=> $producto]);
+    }
+
 
         //Funciones
 
