@@ -1,5 +1,5 @@
 <?php
-$host_url = "http://localhost/DOLLARCITYMVC/";
+$host_url = "http://localhost/DOLLARCITY/";
 class HomeController extends conexion{
 
     public function __construct(){}

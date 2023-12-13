@@ -4,6 +4,7 @@ $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 include_once("includes/conexion.php");
 include_once("Models/UsuarioModel.php");
+include_once("Models/PagoModel.php");
 include_once("Models/ProductoModel.php");
 include_once("Models/CategoriaModel.php");
 include_once("Models/ProveedorModel.php");

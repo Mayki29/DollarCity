@@ -23,6 +23,29 @@ class AdminController
         view("admin.productos", ["productos" => $productos, "categorias" => $categorias, "grafico" => $grafico]);
     }
 
+    public function pagos()
+        {
+       
+            $pags = PagoModel::getAllPago();
+            view("admin.pagos", ["pagos" => $pags]);
+        }
+
+    public function registrarPago() {//va sin parametros
+            $data = json_decode(file_get_contents('php://input'));//con el file_get_contents recibes los datos enviados por POST
+            $pago = new PagoModel();
+            $pago->setUsuarioID($data->usuarioID);
+            $pago->setFechaPago($data->fechaPago);
+            $pago->setMonto($data->monto);
+    
+            $resultado = $pago->savePago(); 
+           
+            $resultado = ($resultado === "correct") ? json_encode(PagoModel::getAllPago()) : $resultado;
+
+            echo $resultado;
+     }
+     
+
+
 
     public function graph(){
         $grafico = json_encode(ProductoModel::getstockPorCategoria());
@@ -88,6 +111,8 @@ class AdminController
 
         echo $resultado;
     }
+
+
     public function modificarEmpleado()
     {
         $data = json_decode(file_get_contents('php://input'));
