@@ -44,9 +44,9 @@ foreach($productos as $producto):
             </div>
             <?php endif?>
             <div class="boton">
-                <button class="form-control btn-add-cart <?=($producto->getCantidadEnStock() <= 0)?'btn-agotado':''?>">
+                <button class="form-control btn-add-cart <?=($producto->getCantidadEnStock() <= 0 || isset($_SESSION['carrito']['productos'][$producto->getProductoID()]))?'btn-agotado':''?>" onclick="addProduct(<?=$producto->getProductoID()?>)">
                     <i class="fa-solid fa-cart-shopping btn-icon-cart"></i>
-                    <span>AGREGAR</span>
+                    <span><?php if($producto->getCantidadEnStock() <= 0){echo 'AGOTADO';}else if(isset($_SESSION['carrito']['productos'][$producto->getProductoID()])){echo 'AÑADIDO';}else{echo 'AÑADIR';} ?></span>
                 </button>
             </div>
 
@@ -57,4 +57,22 @@ foreach($productos as $producto):
 
 
 </div><br>
+<script>
+        let cantidad = 0;
+        function addProduct(id){
+            let url = 'http://localhost/DollarCity/home/addcart';
+            let formData = new FormData();
+            formData.append('id', id);
+            fetch(url,{
+                method: 'POST',
+                body: formData,
+                mode:'cors'
+            }).then(response => response.json())
+            .then(data =>{
+                if(data.ok){
+                    location.reload();
+                }
+            })
+        }
+    </script>
 <?php include("./Views/Layouts/footer.php") ?>

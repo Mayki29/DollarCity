@@ -9,7 +9,7 @@ include_once("./Controllers/HomeController.php");
 $categorias = HomeController::getCategorias();
 
 $logEstado = 0;
-session_start();
+//session_start();
 if(!isset($_SESSION['user'])){ 
     $logEstado = 0;
 }else{ 
@@ -44,6 +44,7 @@ if(!isset($_SESSION['user'])){
     <!-- Enlace a Iconos -->
     <link href="https://file.myfontastic.com/LhSoitGS3oZGK2yScVfSuJ/icons.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+
 
 </head>
 
@@ -153,7 +154,7 @@ if(!isset($_SESSION['user'])){
                         </nav>
                     </div>
                     <div class="container_shopping_cart">
-                        <a class="fa-solid fa-cart-plus" href="#" title="Mis compras"></a>
+                        <a class="fa-solid fa-cart-plus" href="http://localhost/DollarCity/home/carrito" title="Mis compras"> <span><?=(isset($_SESSION['carrito']['productos']) && count($_SESSION['carrito']['productos']) > 0 )? count($_SESSION['carrito']['productos']): ''?></span></a>
                     </div>
                     <div class="container_icons-social">
                         <a class="fa-brands fa-facebook" href="https://www.facebook.com/DollarcityPeru" target="_blank"

@@ -15,7 +15,6 @@ include_once("Models/DetalleVentaModel.php");
 include_once("utils/defaults.php");
 
 
-
 $controller = $_GET['controller'];
 $action = $_GET['action'];
 $id = $_GET['id'];
