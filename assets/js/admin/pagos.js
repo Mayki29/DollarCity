@@ -149,8 +149,7 @@ async function registrarPago() {
     const resp = await request.json();
 
     if (resp !== "error") {
-        cargarTablaPagos(resp);
-        cerrarModalRegistroPago();
+        location.reload();
     } else {
         alert("Error al registrar el pago");
     }

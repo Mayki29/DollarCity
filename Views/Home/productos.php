@@ -20,7 +20,14 @@ foreach($productos as $producto):
         </div>
         <?php endif ?>
         <div class="container-image-product-card">
-            <img src="<?php echo $url_host . $producto->getURLImagen()?>"
+            <img src="<?php 
+            $inicial = substr($producto->getURLImagen(), 0, 4);
+            if($inicial == "http"){
+                echo $producto->getURLImagen();
+            }else{
+                echo $url_host . $producto->getURLImagen();
+            }
+            ?>"
                 class="card-img-top image-product-card <?=($producto->getCantidadEnStock() <= 0)?'image-agotado':''?>"
                 alt="...">
             <?=($producto->getCantidadEnStock() <= 0)?'<span class="text-agotado">AGOTADO</span>':''?>

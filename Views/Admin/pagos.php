@@ -5,11 +5,7 @@ include("./Views/Layouts/header-admin.php");
 <!--INICIO DEL CONTENIDO DE LA TABLA EMPLEADO-->
 
 <div class="container-fluid">
-    <div class="card-body">
-        <div class="chart-area">
-            <canvas id="chartEmpleado"></canvas>
-        </div>
-    </div>
+    
     <!-- Page Heading -->
     <div>
 

@@ -72,7 +72,7 @@ class PagoModel implements JsonSerializable{
 
     public static function getAllPago(){
         $conn = new conexion();
-        $prepare = $conn->getConnection()->prepare("SELECT * FROM Pago");
+        $prepare = $conn->getConnection()->prepare("SELECT * FROM Pago order by PagosID desc");
         $prepare->execute();
         return $prepare->fetchAll(PDO::FETCH_CLASS, PagoModel::class);
     }

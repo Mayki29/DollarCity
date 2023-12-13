@@ -73,6 +73,11 @@ session_start();
                     <i class="fas fa-fw fa-shopping-basket"></i>
                     <span>Compras</span></a>
             </li>
+            <li class="<?php echo ($paginaActual == 'pagos.php')? 'menu_link active menu_item menu_link-select': 'menu_link';?>">
+                <a class="nav-link <?php echo ($paginaActual == 'pagos.php')? 'menu_link-select': '';?>" href="<?=$url_host?>admin/pagos">
+                    <i class="fas fa-fw fa-users"></i>
+                    <span>Pagos</span></a>
+            </li>
 
             <hr class="sidebar-divider my-4">
 
