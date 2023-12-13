@@ -46,8 +46,3 @@ ul, nav{
 .ocultar{
     display: none;
 }
-ul #logoAdmin{
-    border-style: solid;
-    border-color: aliceblue;
-    border: 0 5px 0 0;
-}

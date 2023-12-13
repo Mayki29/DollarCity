@@ -52,8 +52,32 @@ class AdminController
 
     public function ventas()
     {
+        $ventas = array();
+        $detalleVenta = array();
+        $cliente = array();
+        $c = new conexion();
 
-        view("admin.ventas");
+        $a = $c->getConnection()->prepare("SELECT v.VentaID, u.UsuarioID, v.FechaVenta, u.Nombres, u.Apellidos, u.DNI, u.NumeroTelefono, v.TotalVenta FROM Venta v INNER JOIN Usuario u on v.UsuarioID = u.UsuarioID;");
+        $a->execute();
+        $ventas =  $a->fetchAll(PDO::FETCH_ASSOC);
+
+        $b = $c->getConnection()->prepare("SELECT dv.DetalleVentaID, dv.VentaID, dv.ProductoID, dv.Cantidad, dv. SubTotal, p.Nombre  FROM DetalleVenta dv INNER JOIN Producto p on dv.ProductoID = p.ProductoID;");
+        $b->execute();
+        $detalleVenta = $b->fetchAll(PDO::FETCH_ASSOC);
+
+        
+
+        $lista_ventas = array();
+        foreach($ventas as $v){
+            $lista_detalle = array();
+            foreach($detalleVenta as $dv){
+                if($v["VentaID"] == $dv["VentaID"]){
+                    $lista_detalle[]=$dv;
+                }
+            }
+            $lista_ventas[] = ["Venta" => $v, "DetalleVenta" => $lista_detalle];
+        }
+        view("admin.ventas", ["ventas" => $lista_ventas]);
     }
 
     public function pruebas()
@@ -201,7 +225,7 @@ class AdminController
         $producto->setCantidadEnStock($_POST["stock"]);
         $producto->setCategoriaID($_POST["categoria"]);
 
-        if(isset($_FILES["imagen"]["name"])){
+        if(!empty($_FILES['imagen']['name'])){
             $producto->setURLImagen($this->guardarImagen());
         };
         $resultado = $producto->edit();

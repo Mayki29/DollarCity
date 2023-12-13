@@ -7,20 +7,7 @@ include("./Views/Layouts/header-adminComprasyVentas.php");
 <div class="container-fluid ">
 
     <!--TARJETA DEL GRAFICO-->
-    <div class="col-xl-8 col-lg-7   align-items-center justify-content-center">
-        <div class="card shadow mb-4">
-            <!-- Card Header - Dropdown -->
-            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-center">
-                <h5>Ventas</h5>
-            </div>
-            <!-- Card Body -->
-            <div class="card-body justify-content-center  align-items-center">
-                <div class="chart-area">
-                    <canvas id="chartVenta"></canvas>
-                </div>
-            </div>
-        </div>
-    </div>
+    
     <div class="topbar-divider d-none d-sm-block"></div>
     <!-- Page Heading -->
     <div>
@@ -35,20 +22,7 @@ include("./Views/Layouts/header-adminComprasyVentas.php");
         <!-- TABLA DE LAS COMPRASSS -->
         <div class="card shadow mb-5">
             <div class="card-header py-3">
-                <h5 class="m-0 font-weight-bold text-primary">Ventas</h5>
-                <br>
-
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <button class="btn btn-outline-success " type="button" id="btnBuscarTabla">Buscar</button>
-                    </div>
-                    <input type="text" class="form-control bg-emphasis border-1 small" placeholder="Buscar..."
-                        aria-label="Example text with button addon" aria-describedby="button-addon1">
-                </div>
-                <!-- BOTON PARA AGREGAR COMPRA -->
-                <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#staticBackdrop">
-                    <i class="fas fa-cash-register"> Agregar Compra</i>
-                </button>
+                
 
             </div>
 
@@ -60,19 +34,12 @@ include("./Views/Layouts/header-adminComprasyVentas.php");
                     <table class="table table-striped" id="dataTable" width="100%" cellspacing="0">
                         <thead class="table-success">
                             <tr>
-                                <th>CodigoCompra</th>
-                                <th>Empleado</th>
-                                <th>Proveedor</th>
+                                <th>Codigo Venta</th>
+                                <th>Cliente</th>
+                                <th>Numero</th>
+                                <th>DNI</th>
                                 <th>Fecha</th>
-
                                 <th>Total</th>
-
-                                <th>
-                                    <div style=" display: flex;">
-                                        <i class="fas fa-tools"></i>
-                                    </div>
-
-                                </th>
                                 <th>
                                     Detalles
                                 </th>
@@ -80,32 +47,27 @@ include("./Views/Layouts/header-adminComprasyVentas.php");
                             </tr>
                         </thead>
                         <tbody class="table-hover">
+                            <?php foreach($ventas as $v): ?>
                             <tr>
-                                <th>1</th>
-                                <td>Juan</td>
-                                <td>CocaCola</td>
-                                <td>12-09-2023</td>
-
-                                <td>50</td>
+                                <th><?=$v["Venta"]["VentaID"]?></th>
+                                <td><?=$v["Venta"]["Nombres"]." ".$v["Venta"]["Apellidos"]?></td>
+                                <td><?=$v["Venta"]["NumeroTelefono"]?></td>
+                                <td><?=$v["Venta"]["DNI"]?></td>
+                                <td><?=$v["Venta"]["FechaVenta"]?></td>
+                                <td><?=$v["Venta"]["TotalVenta"]?></td>
 
                                 <td>
                                     <div class="btn-group">
-                                        <button class="btn btn-outline-warning " type="button" data-toggle="modal"
-                                            data-target="#staticBackdrop2"><i class="fas fa-pen"></i></button>
-                                        <button class="btn btn-outline-danger" type="button" data-toggle="modal"
-                                            data-target="#EliminarCompra"><i class="fas fa-trash-alt "></i></button>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="btn-group">
-                                        <button class="btn btn-outline-success" type="button" data-toggle="modal"
-                                            data-target="#exampleModal">
+                                        <button class="btn btn-outline-success"
+                                            onclick="mostrarDetalle('v-'+<?=$v['Venta']['VentaID']?>)" type="button"
+                                            data-toggle="modal" data-target="#exampleModal">
                                             <i class="fas fa-info-circle fa-lg" style="color: #15a826; "></i>
                                         </button>
                                     </div>
                                 </td>
 
                             </tr>
+                            <?php endforeach; ?>
 
 
 
@@ -115,390 +77,7 @@ include("./Views/Layouts/header-adminComprasyVentas.php");
                     </table>
                 </div>
             </div>
-            <!-- FIN DE LA TABLA COMPRAS-->
-
-
             <!-- MODALS-->
-            <!--MODAL DE AGREGAR LA COMPRA-->
-            <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1"
-                aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="staticBackdropLabel">Agregar Compra</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-
-                            <form>
-
-                                <!-- Agrega aquí los campos del formulario para agregar datos -->
-                                <table>
-                                    <tr>
-                                        <fieldset disabled>
-                                            <div class="form-group">
-                                                <label for="disabledTextInput">Empleado: </label>
-                                                <input type="text" id="disabledTextInput" class="form-control"
-                                                    placeholder="Empleado1">
-                                            </div>
-
-                                    </tr>
-
-                                    <tr>
-                                        <div class="input-group mb-3">
-                                            <div class="input-group-prepend">
-                                                <label class="input-group-text"
-                                                    for="inputGroupSelect01">Proveedor</label>
-
-                                            </div>
-                                            <select class="custom-select" id="inputGroupSelect01">
-                                                <option selected>Elige un proveedor...</option>
-                                                <option value="1">proveedor1</option>
-                                                <option value="2">proveedor2</option>
-                                                <option value="3">proveedor3</option>
-                                            </select>
-                                        </div>
-                                    </tr>
-
-                                    <tr>
-                                        <td> <label for="apellido">Fecha:</label></td>
-                                        <td><input type="datetime-local" class="form-control" rows="3""  id=" apellido"
-                                                placeholder="Descripcion..." name="apellido"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <hr>
-                                        </td>
-                                        <td>
-                                            <hr>
-                                        </td>
-                                        <td>
-                                            <hr>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>Producto</td>
-                                        <td>Cantidad</td>
-
-                                        <td></td>
-                                    </tr>
-
-                                    <tr>
-
-                                        <td><input type="text" class="form-control productoCompra"
-                                                placeholder="Producto..." required></td>
-
-                                        <td>
-                                            <input type="number" class="form-control cantidadCompra"
-                                                placeholder="Cantidad..." min="1" required>
-                                        </td>
-
-                                        <td>
-                                            <button type="button" class="btn btn-outline-success agregarProducto">
-                                                <i class="fas fa-cash-register"></i>
-                                            </button>
-                                        </td>
-
-                                    </tr>
-
-                                    <tr>
-                                        <td>
-                                            <hr>
-                                        </td>
-                                        <td>
-                                            <hr>
-                                        </td>
-                                        <td>
-                                            <hr>
-                                        </td>
-                                    </tr>
-
-                                </table>
-                                <table>
-                                    <h6>Productos a comprar</h6>
-                                    <div class="form-control productosSeleccionados"
-                                        style="max-height: 150px; overflow-y: auto;"></div>
-
-
-                                    <tr>
-                                        <td>
-                                            <hr>
-                                        </td>
-                                        <td>
-                                            <hr>
-                                        </td>
-                                        <td>
-                                            <hr>
-                                        </td>
-                                    </tr>
-                                </table>
-
-                                <table>
-                                    <tr>
-                                        <td><label for="Subtotal">Subtotal: </label></td>
-                                        <td> <input type="text" class="form-control" name="subtotal" placeholder="0.0"
-                                                id="subtotal"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <hr>
-                                        </td>
-                                        <td>
-                                            <hr>
-                                        </td>
-                                        <td>
-                                            <hr>
-                                        </td>
-                                    </tr>
-                                    <tr>
-
-
-                                        <td><label for="disabledTextInput">TOTAL: </label></td>
-                                        <td><input type="text" id="disabledTextInput" class="form-control"
-                                                placeholder="0.0" disabled></td>
-                                    </tr>
-
-                                </table>
-
-                            </form>
-
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cerrar</button>
-                            <button type="button" class="btn btn-outline-success">Guardar</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!--SCRIPT PARA AGREGAR PRODUCTOS AL MOMENTO-->
-            <script>
-            document.addEventListener('click', function(event) {
-                if (event.target && event.target.classList.contains('agregarProducto')) {
-                    const productoInput = event.target.closest('tr').querySelector('.productoCompra');
-                    const cantidadInput = event.target.closest('tr').querySelector('.cantidadCompra');
-
-                    const producto = productoInput.value.trim();
-                    const cantidad = cantidadInput.value.trim();
-
-                    if (producto !== '' && cantidad > 0) {
-                        const productoDiv = document.createElement('div');
-                        productoDiv.className = 'd-flex justify-content-between producto-seleccionado';
-                        productoDiv.innerHTML = `
-                                                    <input type="text" class="form-control producto-deshabilitado" value="${producto} x${cantidad}" disabled>
-                                                    <button type="button" class="btn btn-outline-danger btn-sm eliminarProducto">
-                                                        <i class="fas fa-times"></i>
-                                                    </button>
-                                                `;
-
-                        document.querySelector('.productosSeleccionados').appendChild(productoDiv);
-
-                        productoInput.value = '';
-                        cantidadInput.value = '';
-                    }
-                }
-
-                if (event.target && event.target.classList.contains('eliminarProducto')) {
-                    event.target.closest('.producto-seleccionado').remove();
-                }
-            });
-            </script>
-
-            <!--FIN DEL SCRIPT-->
-            <!--SCRIPT BUSCAR-->
-            <script>
-            $(document).ready(function() {
-                $('#btnBuscarTabla').on('click', function() {
-                    const textoBusqueda = $('#buscarTabla').val().toLowerCase();
-                    $('#dataTable tbody tr').filter(function() {
-                        $(this).toggle($(this).text().toLowerCase().indexOf(textoBusqueda) > -
-                            1);
-                    });
-                });
-            });
-            </script>
-
-            <!--FIN DEL FORMULARIO PARA AGREGAR LA COMPRA-->
-
-
-            <!-- MODAL ELIMINAR COMPRA-->
-            <div class="modal fade " id="EliminarCompra" data-backdrop="static" data-keyboard="false" tabindex="-1"
-                aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="staticBackdropLabel">Eliminar Compra</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            ¿Estas seguro de que quieres cancelar esta compra?
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-outline-success" data-dismiss="modal">No</button>
-                            <button type="button" class="btn btn-outline-primary">Sí</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- FIN DEL MODAL PARA ELIMINAR COMPRA-->
-
-
-
-            <!-- MODAL PARA MODIFICAR LA COMPRA-->
-            <div class="modal fade" id="staticBackdrop2" data-backdrop="static" data-keyboard="false" tabindex="-1"
-                aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="staticBackdropLabel">Modificar Compra</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <!-- FORMULARIO-->
-                            <form>
-
-                                <!-- Agrega aquí los campos del formulario para modificar datos -->
-                                <table>
-                                    <tr>
-                                        <div class="form-group">
-                                            <label for="empleado">Empleado:</label>
-                                            <input type="text" class="form-control" id="empleado"
-                                                placeholder="Empleado1">
-                                        </div>
-                                    </tr>
-
-                                    <tr>
-                                        <div class="input-group mb-3">
-                                            <div class="input-group-prepend">
-                                                <label class="input-group-text" for="proveedor">Proveedor</label>
-                                            </div>
-                                            <select class="custom-select" id="proveedor">
-                                                <option selected>Elige un proveedor...</option>
-                                                <option value="1">proveedor1</option>
-                                                <option value="2">proveedor2</option>
-                                                <option value="3">proveedor3</option>
-                                            </select>
-                                        </div>
-                                    </tr>
-
-                                    <tr>
-                                        <td><label for="fecha">Fecha:</label></td>
-                                        <td><input type="datetime-local" class="form-control" id="fecha" name="fecha"
-                                                placeholder="Fecha..."></td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>
-                                            <hr>
-                                        </td>
-                                        <td>
-                                            <hr>
-                                        </td>
-                                        <td>
-                                            <hr>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>Producto</td>
-                                        <td>Cantidad</td>
-                                        <td></td>
-                                    </tr>
-
-                                    <!-- Aquí puedes agregar campos para editar productos existentes -->
-
-                                    <tr>
-                                        <td><input type="text" class="form-control productoCompra"
-                                                placeholder="Producto..." required></td>
-                                        <td><input type="number" class="form-control cantidadCompra"
-                                                placeholder="Cantidad..." min="1" required></td>
-                                        <td>
-                                            <button type="button" class="btn btn-outline-success agregarProducto">
-                                                <i class="fas fa-cash-register"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>
-                                            <hr>
-                                        </td>
-                                        <td>
-                                            <hr>
-                                        </td>
-                                        <td>
-                                            <hr>
-                                        </td>
-                                    </tr>
-                                </table>
-
-                                <table>
-                                    <h6>Productos a comprar</h6>
-                                    <div class="form-control productosSeleccionados"
-                                        style="max-height: 150px; overflow-y: auto;"></div>
-                                    <!-- Aquí puedes agregar campos para mostrar productos relacionados -->
-
-                                    <tr>
-                                        <td>
-                                            <hr>
-                                        </td>
-                                        <td>
-                                            <hr>
-                                        </td>
-                                        <td>
-                                            <hr>
-                                        </td>
-                                    </tr>
-                                </table>
-
-                                <table>
-                                    <tr>
-                                        <td><label for="subtotal">Subtotal: </label></td>
-                                        <td><input type="text" class="form-control" name="subtotal" placeholder="0.0"
-                                                id="subtotal"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <hr>
-                                        </td>
-                                        <td>
-                                            <hr>
-                                        </td>
-                                        <td>
-                                            <hr>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><label for="total">TOTAL: </label></td>
-                                        <td><input type="text" class="form-control" name="total" placeholder="0.0"
-                                                id="total"></td>
-                                    </tr>
-                                </table>
-
-
-
-                            </form>
-
-
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
-                            <button type="button" class="btn btn-outline-success">Guardar</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- FIN DE MODIFICACION DE COMPRA-->
-
-
 
             <!-- MODAL DE INFORMACION - DETALLES DE COMPRA-->
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
@@ -511,23 +90,33 @@ include("./Views/Layouts/header-adminComprasyVentas.php");
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <div class="modal-body">
-                            <table class="table table-striped">
+                        <div id="detalles-vent" class="modal-body">
+                            <?php foreach($ventas as $v): ?>
+
+
+                            <table id="v-<?=$v["Venta"]["VentaID"]?>" class="table table-striped d-none" name="tbl">
                                 <thead>
                                     <tr class="table-success">
                                         <th>Codigo</th>
                                         <th>Producto</th>
                                         <th>Cantidad</th>
+                                        <th>Subtotal</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <?php foreach($v["DetalleVenta"] as $dt):  ?>
                                     <tr>
-                                        <td>1</td>
-                                        <td>Gaseosa Coca Cola</td>
-                                        <td>10</td>
+
+                                        <td><?=$dt["DetalleVentaID"]?></td>
+                                        <td><?=$dt["Nombre"]?></td>
+                                        <td><?=$dt["Cantidad"]?></td>
+                                        <td><?=$dt["SubTotal"]?></td>
+
                                     </tr>
+                                    <?php endforeach; ?>
                                 </tbody>
                             </table>
+                            <?php endforeach;?>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-outline-success" data-dismiss="modal">Cerrar</button>
@@ -541,6 +130,17 @@ include("./Views/Layouts/header-adminComprasyVentas.php");
     </div>
 </div>
 
+<script>
+function mostrarDetalle(id) {
+    let tablas = document.getElementsByName("tbl");
+    tablas.forEach(element =>
+        element.classList.add('d-none')
+    );
+
+    let tblMostrar =document.getElementById(id);
+    tblMostrar.classList.remove('d-none');
+}
+</script>
 
 <?php include("./Views/Layouts/footer-adminComprasyVentas.php");?>
 
